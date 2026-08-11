@@ -1,8 +1,8 @@
-import { createTravel } from "../../services/travelService";
 import { createPassenger } from "../../services/passengerService";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 function ReservationForm () {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         full_name : '',
         ci: '',
@@ -22,6 +22,13 @@ function ReservationForm () {
         try{
             await createPassenger(payload);
             alert("Reservation created successfully")
+            navigate('/search-travel', {
+                state: {
+                    passengerId: response.id_passenger,
+                    ci: payload.ci,
+                }
+            })
+
         } catch (error){
             alert("Error to create reservation");
             console.log("Error to create reservation: ", error)
@@ -53,5 +60,4 @@ function ReservationForm () {
 
 
 }
-
 export default ReservationForm;
