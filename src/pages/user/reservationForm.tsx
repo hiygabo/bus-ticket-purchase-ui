@@ -20,12 +20,13 @@ function ReservationForm () {
             age: parseInt(formData.age, 10)
         }
         try{
-            await createPassenger(payload);
+            const response = await createPassenger(payload);
             alert("Reservation created successfully")
-            navigate('/search-travel', {
+            navigate('/travel-search', {
                 state: {
                     passengerId: response.id_passenger,
                     ci: payload.ci,
+                    full_name: payload.full_name
                 }
             })
 
