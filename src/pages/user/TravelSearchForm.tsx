@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { getStops } from "../../services/stopService";
 import { getTravels } from "../../services/travelService";
 import { useLocation } from "react-router-dom";
-
+import { MapContainer, TileLayer, GeoJSON} from "react-leaflet";
+import 'leaflet/dist/leaflet.css';
 function TravelSearchForm() {
     const location = useLocation();
-    const { passengerId, ci, full_name} = location.state || {};
+    const { ci, full_name} = location.state || {};
     const [stops, setStops] = useState<Stop[]>([]);
     const [availableTravels, setAvailableTravels] = useState<Travel[]>([]);
     const [searchData, setSearchData] = useState({
@@ -13,6 +14,7 @@ function TravelSearchForm() {
         id_destiny_stop: "",
         departure_date: ""
     });
+    const [selectedRoute, setSelectedRoute] = useState<any>(null);
 
     useEffect(() => {
         const fetchStops = async () => {
@@ -33,7 +35,7 @@ function TravelSearchForm() {
 
     const handleSearch = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
+        setSelectedRoute(null);
         try {
             const allTravels = await getTravels();
 
@@ -57,13 +59,14 @@ function TravelSearchForm() {
             console.error("Error to search travels", error);
         }
     };
+    console.log("DATOS DE LA RUTA SELECCIONADA:", selectedRoute);
 
     return (
         <>
         <h1> SEARCH YOUR TRAVEL</h1>
         {full_name && (
             <div>
-                <strong>NAME:</strong> {full_name}
+                <strong>NAME:</strong> {full_name} <br />
                 <strong>CI:</strong> {ci}
             </div>
         )}
@@ -129,9 +132,40 @@ function TravelSearchForm() {
                                 Date: {travel.departure_date} <br />
                                 Departure Time: {travel.schedule?.departure_time} <br />
                                 Estimated Arrival time: {travel.schedule?.estimated_arrival_time}
+                                <button onClick={() => setSelectedRoute(travel.route)}>
+                                    VIEW ROUTE
+                                </button>
                             </li>
                         ))}
                     </ul>
+                </div>
+            )}
+            {selectedRoute && (
+                <div style={{ marginTop: '30px', border: '2px solid #ccc', padding: '10px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <h3>Travel Map</h3>
+                        <button onClick={() => setSelectedRoute(null)} style={{ background: 'red', color: 'white' }}>
+                            ✖ Close Map
+                        </button>
+                    </div>
+                    
+                    <div style={{ height: '400px', width: '100%', marginTop: '10px' }}>
+                        <MapContainer 
+                            center={[-16.4897, -68.1193]} 
+                            zoom={6} 
+                            style={{ height: '100%', width: '100%', zIndex: 1 }}
+                        >
+                            <TileLayer
+                                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                            />
+                            <GeoJSON 
+                                key={JSON.stringify(selectedRoute)} 
+                                data={selectedRoute} 
+                                style={{ color: 'blue', weight: 5 }} 
+                            />
+                        </MapContainer>
+                    </div>
                 </div>
             )}
         </>
