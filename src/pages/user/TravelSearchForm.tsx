@@ -148,7 +148,10 @@ function TravelSearchForm() {
                                     VIEW ROUTE
                                 </button>
                                 <button onClick={() => navigate("/buy-ticket", {
-                                    state: { travel }
+                                    state: { travel: travel,
+                                            full_name: full_name,
+                                            ci: ci,
+                                     }
                                 })}>
                                     BUY TICKET
                                 </button>
