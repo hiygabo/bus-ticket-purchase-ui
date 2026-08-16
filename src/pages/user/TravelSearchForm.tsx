@@ -17,7 +17,7 @@ function MapAutoZoom({routeData}: { routeData: any}) {
 }
 function TravelSearchForm() {
     const location = useLocation();
-    const { ci, full_name} = location.state || {};
+    const { ci, full_name, passengerId} = location.state || {};
     const [stops, setStops] = useState<Stop[]>([]);
     const [availableTravels, setAvailableTravels] = useState<Travel[]>([]);
     const [searchData, setSearchData] = useState({
@@ -151,6 +151,7 @@ function TravelSearchForm() {
                                     state: { travel: travel,
                                             full_name: full_name,
                                             ci: ci,
+                                            passengerId: passengerId
                                      }
                                 })}>
                                     BUY TICKET

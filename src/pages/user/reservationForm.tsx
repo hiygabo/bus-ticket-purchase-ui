@@ -6,7 +6,8 @@ function ReservationForm () {
     const [formData, setFormData] = useState({
         full_name : '',
         ci: '',
-        age: ''
+        age: '',
+        passengerId: '',
     })
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
