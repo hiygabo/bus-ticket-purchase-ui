@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getStops } from "../../services/stopService";
 import { getTravels } from "../../services/travelService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -26,6 +26,7 @@ function TravelSearchForm() {
         departure_date: ""
     });
     const [selectedTravelForMap, setSelectedTravelForMap] = useState<any>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchStops = async () => {
@@ -146,7 +147,11 @@ function TravelSearchForm() {
                                 <button onClick={() => setSelectedTravelForMap(travel)}>
                                     VIEW ROUTE
                                 </button>
-                                <button></button>
+                                <button onClick={() => navigate("/buy-ticket", {
+                                    state: { travel }
+                                })}>
+                                    BUY TICKET
+                                </button>
                             </li>
                         ))}
                     </ul>

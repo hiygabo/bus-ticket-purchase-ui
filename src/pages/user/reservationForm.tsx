@@ -38,7 +38,7 @@ function ReservationForm () {
 
     return(
         <>
-            <h1>BUY YOUR TICKET</h1>
+            <h1>FIRST STEP</h1>
             <h2> COMPLETE YOUR PERSONAL DATA</h2>
             <form onSubmit={handleSubmit}>
                 <div>
