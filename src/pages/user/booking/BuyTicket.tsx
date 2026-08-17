@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createTravelDetail } from "../../../services/TravelDetailService";
 import { getOccupiedSeats } from "../../../services/TravelDetailService";
 function BuyTicket(){
     const [selectedSeat, setSelectedSeat] = useState<any>(null);
     const [occupiedSeats, setOcuppiedSeats] = useState<number[]>([]);
+    const [purchasedTicketId, setPurchasedTicketId] = useState<number | null>(null);
     const location = useLocation();
+    const navigate = useNavigate();
     const travel = location.state?.travel;
     const origin = travel.travel_origin;
     const destiny = travel.travel_destiny;
@@ -50,13 +52,41 @@ function BuyTicket(){
 
         try{
             const result = await createTravelDetail(payload);
-            console.log("Ticket saved", result);
-            alert("Ticket Bought successfully!!")
+            if(result && result.id_detail){
+                setPurchasedTicketId(result.id_detail);
+                console.log("Ticket saved", result);
+                alert("Ticket Bought successfully!!")
+            }else{
+                alert("Error to save ticket")
+            }
         }catch (error) {
             console.error("error", error);
         }
 
 
+    };
+
+    if(purchasedTicketId !== null){
+        return(
+            <>
+                <h2>THANK YOU, {full_name}, your ticket has been generated correctly</h2>
+                <p>Next Steps:</p>
+                <ul>
+                    <li>Click "Download ticket" to download your ticket</li>
+                    <li>Save the ticket printed or digital</li>
+                    <li>Present the ticket on TRANS COPACABANA S.A at your travel day</li>
+
+                    <a href={`http://localhost:3000/travel-detail/${purchasedTicketId}/ticket`}
+                        target="_blank"
+                    >
+                        DOWNLOAD TICKET
+                    </a>
+                    <button onClick={() => navigate("/")}>
+                        Back to home
+                    </button>
+                </ul>
+            </>
+        )
     }
 
     return(
