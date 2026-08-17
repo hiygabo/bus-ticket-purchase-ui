@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { createTravelDetail } from "../../../services/TravelDetailService";
+import { getOccupiedSeats } from "../../../services/TravelDetailService";
 function BuyTicket(){
     const [selectedSeat, setSelectedSeat] = useState<any>(null);
+    const [occupiedSeats, setOcuppiedSeats] = useState<number[]>([]);
     const location = useLocation();
     const travel = location.state?.travel;
     const origin = travel.travel_origin;
@@ -12,6 +14,21 @@ function BuyTicket(){
     const passengerId = location.state?.passengerId;
     const seatsList = travel.bus?.seats || [];
     const sortedSeats = [...seatsList].sort((a,b) => a.seat_number - b.seat_number);
+
+    useEffect(() => {
+        if(travel?.id_travel) {
+            const fetchOccupiedSeats = async () => {
+                try{
+                    const data = await getOccupiedSeats(travel.id_travel);
+                    setOcuppiedSeats(data);
+                }catch(error){
+                    alert("Error fetching occupied seats");
+                    console.error(error);
+                }
+            }
+            fetchOccupiedSeats();
+        }
+    },[travel]);
 
     if(!travel) {
         return <h2>404 Travel Not Found</h2>
@@ -79,28 +96,33 @@ function BuyTicket(){
                 ): (
                     <div style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 60px)', // 4 columnas de 60px
-                        gap: '15px', // Espacio entre asientos
+                        gridTemplateColumns: 'repeat(4, 60px)', 
+                        gap: '15px', 
                         justifyContent: 'center'
                     }}>
-                        {sortedSeats.map((seatInfo: any) => (
-                            <button key={seatInfo.id_seat} 
-                            onClick={() => setSelectedSeat(seatInfo)}
-                            style={{
-                                    padding: '15px 0',
-                                    // Verificamos si el ID del asiento seleccionado es igual al de este botón
-                                    backgroundColor: selectedSeat?.id_seat === seatInfo.id_seat ? '#4CAF50' : '#fff',
-                                    color: selectedSeat?.id_seat === seatInfo.id_seat ? '#fff' : '#333',
-                                    border: selectedSeat?.id_seat === seatInfo.id_seat ? '2px solid #388E3C' : '2px solid #ccc',
-                                    borderRadius: '8px',
-                                    fontWeight: 'bold',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s'
-                                }}
-                            >
-                                {seatInfo.seat_number}
-                            </button>
-                        ))}
+                        {sortedSeats.map((seatInfo: any) => {
+                            const occupied = occupiedSeats.includes(seatInfo.id_seat);
+                            const selected = selectedSeat?.id_seat === seatInfo.id_seat;
+
+                            let bgColor = '#fff';
+                            let textColor = '#333';
+                            if(selected){
+                                bgColor = '#4CAF50';
+                                textColor = '#fff';
+                            }else if(occupied) {
+                                bgColor = '#f44336';
+                                textColor = '#fff';
+                            }
+                            return (
+                                <button
+                                    key={seatInfo.id_seat}
+                                    onClick={() => !occupied && setSelectedSeat(seatInfo)}
+                                    disabled={occupied}
+                                >
+                                    {seatInfo.seat_number}
+                                </button>
+                            )
+                        })}
 
                     </div> 
  
