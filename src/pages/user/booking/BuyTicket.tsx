@@ -44,7 +44,7 @@ function BuyTicket(){
         }
 
         const payload = {
-            ticket_price : 50,
+            ticket_price : Number(travel.price),
             id_travel: Number(travel.id_travel),
             id_seat: Number(selectedSeat.id_seat),
             id_passenger: Number(passengerId)
