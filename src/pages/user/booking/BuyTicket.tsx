@@ -63,7 +63,6 @@ function BuyTicket(){
             console.error("error", error);
         }
 
-
     };
 
     if(purchasedTicketId !== null){

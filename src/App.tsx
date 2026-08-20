@@ -1,9 +1,9 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import WelcomePage from './pages/user/WelcomePage';
-import ReservationForm from './pages/user/booking/ReservationForm';
-import TravelSearchForm from './pages/user/booking/TravelSearchForm';
-import BuyTicket from './pages/user/booking/BuyTicket';
+import ReservationForm from './pages/user/Booking/ReservationForm';
+import TravelSearchForm from './pages/user/Booking/TravelSearchForm';
+import BuyTicket from './pages/user/Booking/BuyTicket';
 function App() {
   return (
     <BrowserRouter>
