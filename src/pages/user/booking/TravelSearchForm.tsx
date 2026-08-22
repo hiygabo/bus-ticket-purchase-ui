@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { getStops } from "../../../services/StopService";
-import { getTravels } from "../../../services/TravelService";
+import { getActiveTravels } from "../../../services/TravelService";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap } from "react-leaflet";
 import L from 'leaflet';
@@ -49,7 +49,7 @@ function TravelSearchForm() {
         e.preventDefault();
         setSelectedTravelForMap(null);
         try {
-            const allTravels = await getTravels();
+            const allTravels = await getActiveTravels();
 
             const filterTravels = allTravels.filter((travel: any) => {
                 const originNumber = parseInt(searchData.id_origin_stop, 10);

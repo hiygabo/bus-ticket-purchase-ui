@@ -10,6 +10,11 @@ export const getTravels = async () => {
   return response.data;
 };
 
+export const getActiveTravels = async () => {
+  const response = await api.get("/travel/active");
+  return response.data;
+};
+
 export const desactivateTravel = async (id: number) => {
   const response = await api.delete(`/travel/${id}`);
   return response.data;
