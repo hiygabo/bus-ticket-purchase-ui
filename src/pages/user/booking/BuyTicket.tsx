@@ -102,6 +102,7 @@ function BuyTicket(){
             <strong>DEPARTURE TIME: {travel.schedule?.departure_time}</strong>
             <strong>ESTIMATED ARRIVAL TIME: {travel.schedule?.estimated_arrival_time}</strong>
             <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
+            <strong>PRICE: {travel.price}</strong>
             bus: {travel.bus?.bus_plate}
             <div>
                 <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
