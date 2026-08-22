@@ -50,7 +50,7 @@ function TravelList(){
             </thead>
             <tbody>
                 {travels.map((travel) => (
-                    <tr>
+                    <tr key={travel.id_travel}>
                         <td>{travel.id_travel}</td>
                         <td>{travel.travel_origin?.place?.place_name}</td>
                         <td>{travel.travel_destiny?.place?.place_name}</td>

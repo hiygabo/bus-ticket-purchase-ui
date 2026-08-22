@@ -5,6 +5,8 @@ import ReservationForm from './pages/user/Booking/ReservationForm';
 import TravelSearchForm from './pages/user/Booking/TravelSearchForm';
 import BuyTicket from './pages/user/Booking/BuyTicket';
 import TravelList from './pages/admin/Travel/TravelsList';
+import BusList from './pages/admin/Bus/BusList';
+import EditBus from './pages/admin/Bus/EditBus';
 function App() {
   return (
     <BrowserRouter>
@@ -14,6 +16,9 @@ function App() {
         <Route path="/travel-search" element={<TravelSearchForm/>}/>
         <Route path="/buy-ticket" element={<BuyTicket/>}/>
         <Route path="/travel-list" element={<TravelList/>}/>
+        <Route path="/buses-list" element={<BusList/>}/>
+        <Route path="/edit-bus/:id" element={<EditBus/>}/>
+
       </Routes>
     </BrowserRouter>
   );
