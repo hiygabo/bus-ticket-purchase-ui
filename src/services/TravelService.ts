@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const createTravel = async (travel) => {
+export const createTravel = async (travel: any) => {
   const response = await api.post("/travel", travel);
   return response.data;
 };
@@ -10,7 +10,7 @@ export const getTravels = async () => {
   return response.data;
 };
 
-export const desactivateTravel = async (id) => {
+export const desactivateTravel = async (id: number) => {
   const response = await api.delete(`/travel/${id}`);
   return response.data;
 };

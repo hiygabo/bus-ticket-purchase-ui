@@ -17,9 +17,17 @@ function EditBus(){
         const fetchCategories = async () => {
             try{
                 const data = await getCategories();
-                setCategories(data);
+                if(Array.isArray(data)){
+                    setCategories(data);
+                }else if (data && Array.isArray(data.data)){
+                    setCategories(data.data);
+                }else{
+                    console.warn(data);
+                    setCategories([]);
+                }
             }catch (error){
                 console.error("Error fetching categories", error);
+                setCategories([]);
             }
         }
         fetchCategories();
@@ -63,7 +71,7 @@ function EditBus(){
                 <label> Category </label>
                 <select value={categoryId} onChange={(e) => setCategoryId(e.target.value)} required>
                     <option value="" disabled> Select a category...</option>
-                    {categories.map((category) => (
+                    {Array.isArray(categories) && categories.map((category) => (
                         <option key={category.id_category} value={category.id_category}>
                             {category.category_name}
                         </option>

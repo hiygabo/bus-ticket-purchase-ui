@@ -1,4 +1,4 @@
-import { createPassenger } from "../../../services/passengerService";
+import { createPassenger } from "../../../services/PassengerService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 function ReservationForm () {

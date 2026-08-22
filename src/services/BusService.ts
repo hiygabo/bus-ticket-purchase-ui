@@ -4,12 +4,12 @@ export const getBuses = async () => {
   return response.data;
 };
 
-export const desactivateBus = async (id) => {
+export const desactivateBus = async (id: number) => {
   const response = await api.delete(`/bus/${id}`);
   return response.data;
 };
 
-export const editBus = async (id, bus) => {
+export const editBus = async (id: number, bus: any) => {
   const response = await api.patch(`/bus/${id}`, bus);
   return response.data;
 };

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getStops } from "../../../services/stopService";
-import { getTravels } from "../../../services/travelService";
+import { getStops } from "../../../services/StopService";
+import { getTravels } from "../../../services/TravelService";
 import { useLocation, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap } from "react-leaflet";
 import L from 'leaflet';

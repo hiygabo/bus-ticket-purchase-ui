@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getTravels, desactivateTravel } from "../../../services/travelService";
+import { getTravels, desactivateTravel } from "../../../services/TravelService";
 
 function TravelList(){
     const [travels, setTravels] = useState<any[]>([]);
