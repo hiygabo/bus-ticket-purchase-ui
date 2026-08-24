@@ -1,5 +1,7 @@
 import './App.css'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import WelcomePage from './pages/user/WelcomePage';
 import ReservationForm from './pages/user/Booking/ReservationForm';
 import TravelSearchForm from './pages/user/Booking/TravelSearchForm';
@@ -10,6 +12,7 @@ import EditBus from './pages/admin/Bus/EditBus';
 function App() {
   return (
     <BrowserRouter>
+      <Navbar />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
         <Route path="/reservation" element={<ReservationForm/>}></Route>
@@ -20,6 +23,7 @@ function App() {
         <Route path="/edit-bus/:id" element={<EditBus/>}/>
 
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

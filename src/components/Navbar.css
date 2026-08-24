@@ -1,0 +1,163 @@
+.navbar {
+  --nav-bg: #c8102e;
+  --nav-surface: #a50c24;
+  --nav-text: #ffffff;
+  --nav-text-muted: rgba(255, 255, 255, 0.78);
+  --nav-accent: #ffffff;
+  --nav-accent-soft: rgba(255, 255, 255, 0.16);
+  --nav-height: 64px;
+  --nav-gutter: clamp(16px, 4vw, 40px);
+
+  position: sticky;
+  top: 0;
+  z-index: 1200;
+  background: var(--nav-bg);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 2px 12px rgba(112, 8, 24, 0.35);
+}
+
+.navbar__inner {
+  max-width: 1126px;
+  min-height: var(--nav-height);
+  margin: 0 auto;
+  padding: 10px var(--nav-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  box-sizing: border-box;
+}
+
+/* ---------- Brand ---------- */
+
+.navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.88);
+  font-size: 17px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.navbar__brand strong {
+  color: var(--nav-accent);
+  font-weight: 800;
+}
+
+.navbar__brand-icon {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+  box-sizing: border-box;
+  background: #ffffff;
+  fill: var(--nav-bg);
+  flex-shrink: 0;
+}
+
+.navbar__brand:hover .navbar__brand-icon {
+  background: #ffdde1;
+}
+
+/* ---------- Links ---------- */
+
+.navbar__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.navbar__link {
+  position: relative;
+  display: inline-block;
+  padding: 8px 12px;
+  color: var(--nav-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 3px;
+  height: 2px;
+  background: var(--nav-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+.navbar__link:hover {
+  color: #ffffff;
+  background: var(--nav-surface);
+}
+
+.navbar__link--active {
+  color: #ffffff;
+  background: var(--nav-accent-soft);
+}
+
+.navbar__link--active::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .navbar__inner {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 8px;
+    padding-block: 12px;
+  }
+
+  .navbar__brand {
+    justify-content: center;
+  }
+
+  .navbar__links {
+    justify-content: center;
+    gap: 2px;
+  }
+
+  .navbar__link {
+    padding: 7px 9px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navbar__brand {
+    font-size: 15px;
+  }
+
+  .navbar__links {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    column-gap: 6px;
+  }
+
+  .navbar__link {
+    padding: 7px 10px;
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .navbar__link::after {
+    display: none;
+  }
+}
