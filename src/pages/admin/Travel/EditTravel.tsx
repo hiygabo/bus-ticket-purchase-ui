@@ -14,23 +14,24 @@ function EditTravel () {
     const [buses, setBuses] = useState<any[]>([]);
     const [busId, setBusId] = useState(travelInfo?.bus?.id_bus || "");
     const [stops, setStops] = useState<any[]>([]);
-    const [idOrigin, setIdOrigin] = useState(travelInfo.id_origin_stop?.id_stop);
-    const [idDestiny, setIdDestiny] = useState(travelInfo.id_destiny_stop?.id_stop);
+    const [idOrigin, setIdOrigin] = useState(travelInfo.travel_origin?.id_stop || "");
+    const [idDestiny, setIdDestiny] = useState(travelInfo.travel_destiny?.id_stop || "");
+
     
     useEffect(() => {
         const fetchStops = async () => {
             try{
                 const data = await getStops();
                 if(Array.isArray(data)){
-                    setBuses(data)
+                    setStops(data)
                 }else if (data && Array.isArray(data.data)){
-                    setBuses(data.data);
+                    setStops(data.data);
                 } else {
                     console.warn(data);
-                    setBuses([]);
+                    setStops([]);
                 }
             }catch(error){
-                console.error("Erro fetching stops", error)
+                console.error("Error fetching stops", error)
             }
         }
         fetchStops();
@@ -74,6 +75,7 @@ function EditTravel () {
         }
     }
 
+
     return(
         <>
             <form onSubmit={handleSubmit}>
@@ -97,6 +99,28 @@ function EditTravel () {
                         {Array.isArray(buses) && buses.map((bus) => (
                             <option key={bus.id_bus} value={bus.id_bus}>
                                 {bus.bus_plate}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label>Origin</label>
+                    <select value={idOrigin} onChange={(e) => setIdOrigin(e.target.value)} required>
+                        <option value="">Select a origin...</option>
+                        {Array.isArray(stops) && stops.map((stop) => (
+                            <option key={stop.id_stop} value={stop.id_stop}>
+                                {stop.stop_name} - {stop.place?.place_name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div>
+                    <label>Destiny</label>
+                    <select value={idDestiny} onChange={(e) => setIdDestiny(e.target.value)} required>
+                        <option value="">Select a destiny...</option>
+                        {Array.isArray(stops) && stops.map((stop) => (
+                            <option key={stop.id_stop} value={stop.id_stop}>
+                                {stop.stop_name} - {stop.place?.place_name} 
                             </option>
                         ))}
                     </select>
