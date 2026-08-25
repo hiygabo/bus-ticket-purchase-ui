@@ -68,40 +68,22 @@ function BuyTicket(){
     if(purchasedTicketId !== null){
         return(
             <>
-                <h2>THANK YOU, {full_name}, YOUR TICKET HAS BEEN GENERATED CORRECTLY</h2>
-
-                <div className="ticket-box">
-                    <p className="ticket-box__route">
-                        {origin?.place?.place_name} → {destiny?.place?.place_name}
-                    </p>
-                    <ul className="ticket-box__details">
-                        <li><span>TICKET Nº</span><strong>{purchasedTicketId}</strong></li>
-                        <li><span>PASSENGER</span><strong>{full_name}</strong></li>
-                        <li><span>CI</span><strong>{CI}</strong></li>
-                        <li><span>SEAT</span><strong>{selectedSeat?.seat_number}</strong></li>
-                        <li><span>DATE</span><strong>{travel.departure_date}</strong></li>
-                        <li><span>PRICE</span><strong>Bs. {travel.price}</strong></li>
-                    </ul>
-                </div>
-
+                <h2>THANK YOU, {full_name}, your ticket has been generated correctly</h2>
                 <p>Next Steps:</p>
                 <ul>
-                    <li>Click "DOWNLOAD TICKET" to download your ticket</li>
+                    <li>Click "Download ticket" to download your ticket</li>
                     <li>Save the ticket printed or digital</li>
-                    <li>Present your ticket at TRANS COPACABANA S.A. on your travel day</li>
-                </ul>
+                    <li>Present the ticket on TRANS COPACABANA S.A at your travel day</li>
 
-                <div className="ticket-actions">
                     <a href={`http://localhost:3000/travel-detail/${purchasedTicketId}/ticket`}
                         target="_blank"
-                        rel="noreferrer"
                     >
                         DOWNLOAD TICKET
                     </a>
                     <button onClick={() => navigate("/")}>
-                        BACK TO HOME
+                        Back to home
                     </button>
-                </div>
+                </ul>
             </>
         )
     }
@@ -121,9 +103,7 @@ function BuyTicket(){
             <strong>ESTIMATED ARRIVAL TIME: {travel.schedule?.estimated_arrival_time}</strong>
             <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
             <strong>PRICE: {travel.price}</strong>
-            <div>
-                <p>BUS: {travel.bus?.bus_plate}</p>
-            </div>
+            bus: {travel.bus?.bus_plate}
             <div>
                 <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
             </div>
