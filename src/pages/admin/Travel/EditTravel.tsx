@@ -90,7 +90,11 @@ function EditTravel () {
                 </div>
                 <div>
                     <label>Status</label>
-                    <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} required />
+                    {/* <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} required /> */}
+                    <select value={status} onChange={(e) => setStatus(e.target.value)} required >
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="INACTIVE">INACTIVE</option>
+                    </select>
                 </div>
                 <div>
                     <label>Bus</label>
