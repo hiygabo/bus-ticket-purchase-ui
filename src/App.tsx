@@ -9,6 +9,7 @@ import BuyTicket from './pages/user/Booking/BuyTicket';
 import TravelList from './pages/admin/Travel/TravelsList';
 import BusList from './pages/admin/Bus/BusList';
 import EditBus from './pages/admin/Bus/EditBus';
+import EditTravel from './pages/admin/Travel/EditTravel';
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/travel-list" element={<TravelList/>}/>
         <Route path="/buses-list" element={<BusList/>}/>
         <Route path="/edit-bus/:id" element={<EditBus/>}/>
+        <Route path="/edit-travel/:id" element={<EditTravel/>}/>
 
       </Routes>
       <Footer />
