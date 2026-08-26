@@ -69,6 +69,9 @@ function BusList(){
                     ))}
                 </tbody>
             </table>
+            <button className="back-btn" onClick={() => navigate("/admin")}>
+                ← Back
+            </button>
         </div>
     );
 }

@@ -10,6 +10,7 @@ import TravelList from './pages/admin/Travel/TravelsList';
 import BusList from './pages/admin/Bus/BusList';
 import EditBus from './pages/admin/Bus/EditBus';
 import EditTravel from './pages/admin/Travel/EditTravel';
+import AdminPanel from './pages/admin/AdminPanel';
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
         <Route path="/reservation" element={<ReservationForm/>}></Route>
         <Route path="/travel-search" element={<TravelSearchForm/>}/>
         <Route path="/buy-ticket" element={<BuyTicket/>}/>
+        <Route path="/admin" element={<AdminPanel/>}/>
         <Route path="/travel-list" element={<TravelList/>}/>
         <Route path="/buses-list" element={<BusList/>}/>
         <Route path="/edit-bus/:id" element={<EditBus/>}/>

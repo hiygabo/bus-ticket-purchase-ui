@@ -5,8 +5,7 @@ const links = [
   { to: '/', label: 'Home', end: true },
   { to: '/reservation', label: 'Book Ticket' },
   { to: '/travel-search', label: 'Search Travels' },
-  { to: '/travel-list', label: 'Admin · Travels' },
-  { to: '/buses-list', label: 'Admin · Buses' },
+  { to: '/admin', label: 'Admin' },
 ];
 
 function Navbar() {

@@ -76,6 +76,9 @@ function TravelList(){
                     ))}
                 </tbody>
             </table>
+            <button className="back-btn" onClick={() => navigate("/admin")}>
+                ← Back
+            </button>
         </div>
     )
 }

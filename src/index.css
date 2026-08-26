@@ -4,6 +4,7 @@
 @import './pages/admin/Bus/BusList.css';
 @import './pages/admin/Travel/TravelsList.css';
 @import './pages/admin/Bus/EditBus.css';
+@import './pages/admin/AdminPanel.css';
 
 :root {
   --text: #4f4f56;

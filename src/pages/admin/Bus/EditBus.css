@@ -1,7 +1,30 @@
+.back-btn {
+  display: block;
+  width: fit-content;
+  margin: 28px auto 48px;
+  padding: 8px 18px;
+  background: #fff;
+  border: 1px solid var(--border);
+  color: var(--text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition:
+    border-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.back-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
 #root:has(> form > h2) > form {
   box-sizing: border-box;
   width: min(440px, calc(100% - 32px));
-  margin: 44px auto 56px;
+  margin: 44px auto 0;
   padding: 30px 28px;
   background: #fff;
   border: 1px solid var(--border);

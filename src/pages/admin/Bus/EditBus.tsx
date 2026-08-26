@@ -82,6 +82,9 @@ function EditBus(){
                     SAVE CHANGES
                 </button>
             </form>
+            <button className="back-btn" onClick={() => navigate("/admin")}>
+                ← Back
+            </button>
         </>
     )
 }

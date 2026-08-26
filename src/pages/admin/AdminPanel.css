@@ -1,0 +1,110 @@
+.admin-panel {
+  width: min(720px, calc(100% - 32px));
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.admin-panel__title {
+  margin: 36px auto 6px;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--text-h);
+}
+
+.admin-panel__subtitle {
+  margin: 0 auto 36px;
+  font-size: 14px;
+  color: #a89da0;
+  letter-spacing: 0.04em;
+}
+
+.admin-panel__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.admin-panel__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 38px 20px 32px;
+  background: #fff;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-panel__card:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 4px 20px rgba(200, 16, 46, 0.08);
+}
+
+.admin-panel__icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: var(--accent-bg);
+  border: 2px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
+}
+
+.admin-panel__icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.admin-panel__pencil {
+  position: absolute;
+  bottom: -4px;
+  right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--accent);
+  border-radius: 50%;
+  color: #fff;
+}
+
+.admin-panel__pencil svg {
+  width: 12px;
+  height: 12px;
+}
+
+.admin-panel__label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-h);
+}
+
+@media (max-width: 480px) {
+  .admin-panel {
+    width: 100%;
+  }
+
+  .admin-panel__title {
+    font-size: 22px;
+    margin-top: 24px;
+  }
+
+  .admin-panel__grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .admin-panel__card {
+    padding: 28px 20px 24px;
+  }
+}
