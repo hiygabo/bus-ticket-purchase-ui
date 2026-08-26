@@ -3,7 +3,7 @@ import { editTravel } from "../../../services/TravelService";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getBuses } from "../../../services/BusService";
 import { getStops } from "../../../services/StopService";
-
+import { getSchedules } from "../../../services/ScheduleService";
 function EditTravel () {
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,7 +16,8 @@ function EditTravel () {
     const [stops, setStops] = useState<any[]>([]);
     const [idOrigin, setIdOrigin] = useState(travelInfo.travel_origin?.id_stop || "");
     const [idDestiny, setIdDestiny] = useState(travelInfo.travel_destiny?.id_stop || "");
-
+    const [schedules, setSchedules] = useState<any[]>([]);
+    const [idSchedule, setIdSchedule] = useState(travelInfo.schedule?.id_schedule || "");
     
     useEffect(() => {
         const fetchStops = async () => {
@@ -35,6 +36,26 @@ function EditTravel () {
             }
         }
         fetchStops();
+    },[])
+
+    useEffect (() => {
+        const fetchSchedules = async () => {
+            try{
+                const data = await getSchedules();
+                if(Array.isArray(data)){
+                    setSchedules(data);
+                }else if (data && Array.isArray(data.data)){
+                        setSchedules(data.data)
+                } else {
+                    console.warn(data);
+                    setSchedules([]);
+                }
+                
+            }catch(error){
+                console.error("Error fetching schedules", error);
+            }
+        }
+        fetchSchedules();
     },[])
 
     useEffect(() => {
@@ -65,6 +86,7 @@ function EditTravel () {
             id_bus: Number(busId),
             id_origin_stop : Number(idOrigin),
             id_destiny_stop: Number(idDestiny),
+            id_schedule: Number(idSchedule),
         }
         try{
             await editTravel(travelInfo.id_travel, payload);
@@ -110,7 +132,7 @@ function EditTravel () {
                 <div>
                     <label>Origin</label>
                     <select value={idOrigin} onChange={(e) => setIdOrigin(e.target.value)} required>
-                        <option value="">Select a origin...</option>
+                        <option value="">Select an origin...</option>
                         {Array.isArray(stops) && stops.map((stop) => (
                             <option key={stop.id_stop} value={stop.id_stop}>
                                 {stop.stop_name} - {stop.place?.place_name}
@@ -121,7 +143,7 @@ function EditTravel () {
                 <div>
                     <label>Destiny</label>
                     <select value={idDestiny} onChange={(e) => setIdDestiny(e.target.value)} required>
-                        <option value="">Select a destiny...</option>
+                        <option value="">Select an destiny...</option>
                         {Array.isArray(stops) && stops.map((stop) => (
                             <option key={stop.id_stop} value={stop.id_stop}>
                                 {stop.stop_name} - {stop.place?.place_name} 
@@ -129,6 +151,18 @@ function EditTravel () {
                         ))}
                     </select>
                 </div>
+                <div>
+                <label>Schedule (Departure - Arrival)</label>
+                    <select value={idSchedule} onChange={(e) => setIdSchedule(e.target.value)} required>
+                    <option value="" disabled>Select a schedule...</option>
+                    {Array.isArray(schedules) && schedules.map((schedule) => (
+                    <option key={schedule.id_schedule} value={schedule.id_schedule}>
+                        Departure Time: {schedule.departure_time} | Arrival Time: {schedule.estimated_arrival_time} | Travel Time: {schedule.estimated_travel_time}
+                    </option>
+                    ))}
+                    </select>
+                </div>
+
                 <button type="submit">
                     SAVE CHANGES
                 </button>
