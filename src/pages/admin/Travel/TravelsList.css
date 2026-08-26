@@ -1,26 +1,23 @@
-#root > table {
-  display: block;
-  overflow-x: auto;
-  box-sizing: border-box;
-  width: min(880px, calc(100% - 32px));
+.table-wrapper {
+  width: calc(100% - 32px);
+  max-width: 1200px;
   margin: 0 auto 52px;
+  overflow-x: auto;
   background: #fff;
   border: 1px solid var(--border);
-  border-collapse: collapse;
-  text-align: left;
   scrollbar-width: thin;
   scrollbar-color: #d9c6c9 transparent;
 }
 
-#root > table::-webkit-scrollbar {
+.table-wrapper::-webkit-scrollbar {
   height: 8px;
 }
 
-#root > table::-webkit-scrollbar-thumb {
+.table-wrapper::-webkit-scrollbar-thumb {
   background: #d9c6c9;
 }
 
-#root > table::before {
+.table-wrapper::before {
   content: 'Manage Travels';
   display: block;
   width: fit-content;
@@ -34,7 +31,14 @@
   color: var(--text-h);
 }
 
-#root > table th {
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  text-align: left;
+}
+
+.table-wrapper th {
   padding: 13px 16px;
   background: var(--accent);
   color: #fff;
@@ -43,22 +47,22 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
   text-align: left;
-  white-space: nowrap;
 }
 
-#root > table td {
+.table-wrapper td {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border);
   font-size: 14.5px;
   color: #2b2b31;
-  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-#root > table tbody tr:hover td {
+.table-wrapper tbody tr:hover td {
   background: #fdf5f6;
 }
 
-#root > table tbody:empty::after {
+.table-wrapper tbody:empty::after {
   content: 'No records found';
   display: block;
   padding: 28px 16px;
@@ -67,7 +71,7 @@
   color: #a89da0;
 }
 
-#root > table td button {
+.table-wrapper td button {
   padding: 7px 14px;
   background: #fff;
   border: 1px solid var(--accent);
@@ -84,33 +88,83 @@
     transform 0.1s ease;
 }
 
-#root > table td button:hover {
+.table-wrapper td button:hover {
   background: var(--accent-bg);
 }
 
-#root > table td button:active {
+.table-wrapper td button:active {
   transform: translateY(1px);
 }
 
-@media (max-width: 600px) {
-  #root > table::before {
-    font-size: 20px;
-    margin-bottom: 22px;
+.table-wrapper td button:not(:only-of-type):last-of-type {
+  background: var(--accent);
+  color: #fff;
+}
+
+.table-wrapper td button:not(:only-of-type):last-of-type:hover {
+  background: #a50c24;
+}
+
+@media (max-width: 768px) {
+  .table-wrapper {
+    width: calc(100% - 16px);
+    margin-bottom: 32px;
   }
 
-  #root > table th {
-    padding: 11px 12px;
-    font-size: 10.5px;
-    letter-spacing: 0.1em;
+  .table-wrapper::before {
+    font-size: 22px;
+    margin-top: 24px;
+    margin-bottom: 20px;
   }
 
-  #root > table td {
-    padding: 10px 12px;
-    font-size: 13.5px;
+  .table-wrapper th {
+    padding: 12px 14px;
+    font-size: 10px;
+    letter-spacing: 0.08em;
   }
 
-  #root > table td button {
-    padding: 6px 10px;
-    font-size: 11px;
+  .table-wrapper td {
+    padding: 10px 14px;
+    font-size: 13px;
+  }
+
+  .table-wrapper td button {
+    padding: 6px 12px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-wrapper {
+    width: 100%;
+    margin: 0 0 24px;
+    border: none;
+    border-radius: 0;
+  }
+
+  .table-wrapper::before {
+    font-size: 18px;
+    padding-left: 16px;
+    margin-left: 0;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .table-wrapper th {
+    padding: 10px 10px;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+
+  .table-wrapper td {
+    padding: 9px 10px;
+    font-size: 12px;
+  }
+
+  .table-wrapper td button {
+    padding: 5px 8px;
+    font-size: 9px;
+    letter-spacing: 0.05em;
   }
 }

@@ -42,39 +42,41 @@ function TravelList(){
     }
 
     return(
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Origin</th>
-                    <th>Destiny</th>
-                    <th>Date</th>
-                    <th>price</th>
-                    <th>state</th>
-                    <th>accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                {travels.map((travel) => (
-                    <tr key={travel.id_travel}>
-                        <td>{travel.id_travel}</td>
-                        <td>{travel.travel_origin?.place?.place_name}</td>
-                        <td>{travel.travel_destiny?.place?.place_name}</td>
-                        <td>{travel.departure_date}</td>
-                        <td>{travel.price}</td>
-                        <td>{travel.status}</td>
-                        <td>
-                            <button onClick={() => handleDesactivateTravel(travel.id_travel)}>
-                                {travel.status === 'ACTIVE' ? 'DISABLE': 'INACTIVE'}
-                            </button>
-                            <button onClick={() => handleGoToEdit(travel)}>
-                                Edit
-                            </button>
-                        </td>
+        <div className="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Origin</th>
+                        <th>Destiny</th>
+                        <th>Date</th>
+                        <th>price</th>
+                        <th>state</th>
+                        <th>accion</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {travels.map((travel) => (
+                        <tr key={travel.id_travel}>
+                            <td>{travel.id_travel}</td>
+                            <td>{travel.travel_origin?.place?.place_name}</td>
+                            <td>{travel.travel_destiny?.place?.place_name}</td>
+                            <td>{travel.departure_date}</td>
+                            <td>{travel.price}</td>
+                            <td>{travel.status}</td>
+                            <td>
+                                <button onClick={() => handleDesactivateTravel(travel.id_travel)}>
+                                    {travel.status === 'ACTIVE' ? 'DISABLE': 'INACTIVE'}
+                                </button>
+                                <button onClick={() => handleGoToEdit(travel)}>
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
 export default TravelList;

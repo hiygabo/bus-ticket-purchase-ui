@@ -69,12 +69,29 @@ function BuyTicket(){
         return(
             <>
                 <h2>THANK YOU, {full_name}, your ticket has been generated correctly</h2>
+
+                <div className="ticket-box">
+                    <p className="ticket-box__route">
+                        {origin?.place?.place_name} {destiny?.place?.place_name}
+                    </p>
+                    <ul className="ticket-box__details">
+                        <li><span>Travel</span><strong>Nº {travel.id_travel}</strong></li>
+                        <li><span>Date</span><strong>{travel.departure_date}</strong></li>
+                        <li><span>Departure</span><strong>{travel.schedule?.departure_time}</strong></li>
+                        <li><span>Arrival</span><strong>{travel.schedule?.estimated_arrival_time}</strong></li>
+                        <li><span>Seat</span><strong>{selectedSeat?.seat_number}</strong></li>
+                        <li><span>Price</span><strong>Bs. {travel.price}</strong></li>
+                    </ul>
+                </div>
+
                 <p>Next Steps:</p>
                 <ul>
                     <li>Click "Download ticket" to download your ticket</li>
                     <li>Save the ticket printed or digital</li>
                     <li>Present the ticket on TRANS COPACABANA S.A at your travel day</li>
+                </ul>
 
+                <div className="ticket-actions">
                     <a href={`http://localhost:3000/travel-detail/${purchasedTicketId}/ticket`}
                         target="_blank"
                     >
@@ -83,7 +100,7 @@ function BuyTicket(){
                     <button onClick={() => navigate("/")}>
                         Back to home
                     </button>
-                </ul>
+                </div>
             </>
         )
     }

@@ -39,36 +39,37 @@ function BusList(){
     }
 
     return(
-        <table>
-            <thead>
-                <tr>
-                    
-                    <th>ID BUS</th>
-                    <th>Bus Plate</th>
-                    <th>State</th>
-                    <th>Category</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                {buses.map((bus) => (
-                    <tr key={bus.id_bus}>
-                        <td>{bus.id_bus}</td>
-                        <td>{bus.bus_plate}</td>
-                        <td>{bus.bus_state}</td>
-                        <td>{bus.category?.category_name}</td>
-                        <td>
-                            <button onClick={() => handleDesactivateBus(bus.id_bus)}>
-                                {bus.bus_state === 'ACTIVE'? 'DISABLE': 'INACTIVE'}
-                            </button>
-                            <button onClick={() => handleGoToEdit(bus)}>
-                                Edit
-                            </button>
-                        </td>
+        <div className="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID BUS</th>
+                        <th>Bus Plate</th>
+                        <th>State</th>
+                        <th>Category</th>
+                        <th>Accion</th>
                     </tr>
-                ))}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {buses.map((bus) => (
+                        <tr key={bus.id_bus}>
+                            <td>{bus.id_bus}</td>
+                            <td>{bus.bus_plate}</td>
+                            <td>{bus.bus_state}</td>
+                            <td>{bus.category?.category_name}</td>
+                            <td>
+                                <button onClick={() => handleDesactivateBus(bus.id_bus)}>
+                                    {bus.bus_state === 'ACTIVE'? 'DISABLE': 'INACTIVE'}
+                                </button>
+                                <button onClick={() => handleGoToEdit(bus)}>
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     );
 }
 export default BusList;
