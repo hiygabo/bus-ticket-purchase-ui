@@ -5,7 +5,6 @@ import './Navbar.css';
 const links = [
   { to: '/', label: 'Home', end: true },
   { to: '/reservation', label: 'Book Ticket' },
-  { to: '/travel-search', label: 'Search Travels' },
   { to: '/admin', label: 'Admin' },
 ];
 

@@ -84,6 +84,10 @@
     grid-template-columns: 1fr;
     gap: 36px;
   }
+
+  .welcome__dest-title {
+    font-size: 24px;
+  }
 }
 
 @media (max-width: 400px) {
@@ -173,4 +177,174 @@
   font-size: 15px;
   line-height: 1.65;
   color: #666;
+}
+
+/* ---------- Destinations ---------- */
+
+.welcome__destinations {
+  background: #f7f8fc;
+  padding: 64px 24px 80px;
+  text-align: center;
+}
+
+.welcome__dest-title {
+  margin: 0 0 8px;
+  font-size: 30px;
+  font-weight: 400;
+  color: #1a1a2e;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.welcome__dest-title strong {
+  font-weight: 700;
+  color: var(--welcome-accent);
+}
+
+.welcome__dest-subtitle {
+  margin: 0 auto 48px;
+  font-size: 16px;
+  color: #888;
+}
+
+.welcome__dest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1060px;
+  margin: 0 auto;
+}
+
+/* ---------- Destination Card ---------- */
+
+.welcome__dest-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  height: 220px;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition:
+    transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    box-shadow 0.35s ease;
+}
+
+.welcome__dest-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.16);
+}
+
+.welcome__dest-card-bg {
+  position: absolute;
+  inset: 0;
+  opacity: 0.92;
+  transition: opacity 0.35s ease;
+}
+
+.welcome__dest-card:hover .welcome__dest-card-bg {
+  opacity: 1;
+}
+
+.welcome__dest-card-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  height: 100%;
+  padding: 24px;
+  background: linear-gradient(
+    180deg,
+    transparent 30%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.welcome__dest-card-name {
+  margin: 0 0 4px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.welcome__dest-card-capital {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.02em;
+}
+
+.welcome__dest-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.welcome__dest-card-cta svg {
+  width: 16px;
+  height: 16px;
+}
+
+.welcome__dest-card:hover .welcome__dest-card-cta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.welcome__dest-cta {
+  margin: 40px 0 0;
+  font-size: 17px;
+  color: #555;
+}
+
+.welcome__dest-cta-btn {
+  background: var(--welcome-accent);
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: 8px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.welcome__dest-cta-btn:hover {
+  background: #a50c24;
+  transform: translateY(-2px);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 860px) {
+  .welcome__dest-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 520px) {
+  .welcome__dest-grid {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .welcome__dest-card {
+    height: 180px;
+  }
+
+  .welcome__destinations {
+    padding: 48px 20px 56px;
+  }
 }
