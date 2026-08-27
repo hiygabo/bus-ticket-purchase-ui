@@ -1,0 +1,88 @@
+.welcome {
+  --welcome-accent: #c8102e;
+}
+
+/* ---------- Carousel ---------- */
+
+.welcome__carousel {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  overflow: hidden;
+  background: #1a1a2e;
+}
+
+.welcome__carousel-slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.welcome__carousel-slide--active {
+  opacity: 1;
+}
+
+.welcome__carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Placeholder por si no hay imagen */
+.welcome__carousel-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.04em;
+}
+
+/* Dots indicator */
+
+.welcome__carousel-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.welcome__carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.welcome__carousel-dot--active {
+  background: #ffffff;
+  transform: scale(1.2);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 720px) {
+  .welcome__carousel {
+    height: 300px;
+  }
+}
+
+@media (max-width: 400px) {
+  .welcome__carousel {
+    height: 220px;
+  }
+}
