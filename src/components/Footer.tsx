@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logo from '../assets/images/logos/logocop.png';
 import './Footer.css';
 
 const exploreLinks = [
@@ -14,6 +15,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer__inner">
         <section className="footer__brand">
+          <img className="footer__logo-img" src={logo} alt="Trans Copacabana logo" />
           <p className="footer__logo">
             TRANS <strong>COPACABANA</strong>
           </p>
