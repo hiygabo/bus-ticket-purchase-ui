@@ -12,6 +12,7 @@ import EditBus from './pages/admin/Bus/EditBus';
 import EditTravel from './pages/admin/Travel/EditTravel';
 import AdminPanel from './pages/admin/AdminPanel';
 import AboutUs from './pages/user/AboutUs';
+import Login from './pages/auth/Login';
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/buses-list" element={<BusList/>}/>
         <Route path="/edit-bus/:id" element={<EditBus/>}/>
         <Route path="/edit-travel/:id" element={<EditTravel/>}/>
+        <Route path="/login" element={<Login/>}/>
 
       </Routes>
       <Footer />

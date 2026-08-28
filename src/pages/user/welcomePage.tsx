@@ -10,10 +10,30 @@ interface Slide {
 }
 
 const slides: Slide[] = [
-  { alt: 'Bus travel', label: 'Travel comfortably', color: '#1a1a2e' },
-  { alt: 'Scenic route', label: 'Discover new routes', color: '#16213e' },
-  { alt: 'Online booking', label: 'Book in minutes', color: '#0f3460' },
-  { alt: 'Safe journey', label: 'Travel safe', color: '#533483' },
+  {
+    src: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1400&h=500&fit=crop',
+    alt: 'Bus on the road',
+    label: 'Travel comfortably',
+    color: '#1a1a2e',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1400&h=500&fit=crop',
+    alt: 'Scenic mountain route',
+    label: 'Discover new routes',
+    color: '#16213e',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&h=500&fit=crop',
+    alt: 'Snow-capped mountains',
+    label: 'Book in minutes',
+    color: '#0f3460',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400&h=500&fit=crop',
+    alt: 'Mountain landscape',
+    label: 'Travel safe',
+    color: '#533483',
+  },
 ];
 
 interface Department {
