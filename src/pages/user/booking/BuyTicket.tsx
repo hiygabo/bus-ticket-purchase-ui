@@ -72,7 +72,9 @@ function BuyTicket(){
 
                 <div className="ticket-box">
                     <p className="ticket-box__route">
-                        {origin?.place?.place_name} {destiny?.place?.place_name}
+                        <span className="ticket-box__origin">{origin?.place?.place_name}</span>
+                        <span className="ticket-box__arrow" aria-hidden="true">→</span>
+                        <span className="ticket-box__destiny">{destiny?.place?.place_name}</span>
                     </p>
                     <ul className="ticket-box__details">
                         <li><span>Travel</span><strong>Nº {travel.id_travel}</strong></li>
@@ -120,7 +122,7 @@ function BuyTicket(){
             <strong>ESTIMATED ARRIVAL TIME: {travel.schedule?.estimated_arrival_time}</strong>
             <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
             <strong>PRICE: {travel.price}</strong>
-            bus: {travel.bus?.bus_plate}
+            <strong>BUS PLATE: {travel.bus?.bus_plate}</strong>
             <div>
                 <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
             </div>

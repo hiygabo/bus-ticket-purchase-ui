@@ -11,26 +11,26 @@ interface Slide {
 
 const slides: Slide[] = [
   {
-    src: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1400&h=500&fit=crop',
-    alt: 'Bus on the road',
+    src: 'https://images.pexels.com/photos/18470737/pexels-photo-18470737.jpeg?auto=compress&cs=tinysrgb&w=1400&h=500&fit=crop',
+    alt: 'Passengers boarding an intercity bus',
     label: 'Travel comfortably',
     color: '#1a1a2e',
   },
   {
-    src: 'https://images.unsplash.com/photo-1508193638397-1c4234db14d8?w=1400&h=500&fit=crop',
-    alt: 'Scenic mountain route',
+    src: 'https://images.pexels.com/photos/16493419/pexels-photo-16493419.jpeg?auto=compress&cs=tinysrgb&w=1400&h=500&fit=crop',
+    alt: 'Intercity bus terminal at dusk',
     label: 'Discover new routes',
     color: '#16213e',
   },
   {
-    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1400&h=500&fit=crop',
-    alt: 'Snow-capped mountains',
+    src: 'https://images.pexels.com/photos/25906188/pexels-photo-25906188.jpeg?auto=compress&cs=tinysrgb&w=1400&h=500&fit=crop',
+    alt: 'Side view of an urban public bus',
     label: 'Book in minutes',
     color: '#0f3460',
   },
   {
-    src: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1400&h=500&fit=crop',
-    alt: 'Mountain landscape',
+    src: 'https://images.pexels.com/photos/9141327/pexels-photo-9141327.jpeg?auto=compress&cs=tinysrgb&w=1400&h=500&fit=crop',
+    alt: 'Buses crossing a city bridge',
     label: 'Travel safe',
     color: '#533483',
   },
@@ -40,18 +40,64 @@ interface Department {
   name: string;
   capital: string;
   gradient: string;
+  image?: string;
 }
 
 const departments: Department[] = [
-  { name: 'Chuquisaca', capital: 'Sucre', gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' },
-  { name: 'La Paz', capital: 'La Paz', gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)' },
-  { name: 'Cochabamba', capital: 'Cochabamba', gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)' },
-  { name: 'Oruro', capital: 'Oruro', gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' },
-  { name: 'Potosí', capital: 'Potosí', gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)' },
-  { name: 'Tarija', capital: 'Tarija', gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)' },
-  { name: 'Santa Cruz', capital: 'Santa Cruz', gradient: 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)' },
-  { name: 'Beni', capital: 'Trinidad', gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)' },
-  { name: 'Pando', capital: 'Cobija', gradient: 'linear-gradient(135deg, #f5576c 0%, #ff9a9e 100%)' },
+  {
+    name: 'Chuquisaca',
+    capital: 'Sucre',
+    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Catedral_-_Sucre.jpg/960px-Catedral_-_Sucre.jpg',
+  },
+  {
+    name: 'La Paz',
+    capital: 'La Paz',
+    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Centro_de_La_Paz_Bolivia_Illimani_-_panoramio.jpg/960px-Centro_de_La_Paz_Bolivia_Illimani_-_panoramio.jpg',
+  },
+  {
+    name: 'Cochabamba',
+    capital: 'Cochabamba',
+    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+    image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Vista_panor%C3%A1mica_de_Cochabamba_y_Cisto_de_la_Concordia.jpg?width=960',
+  },
+  {
+    name: 'Oruro',
+    capital: 'Oruro',
+    gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Casco_minero_oruro.JPG/960px-Casco_minero_oruro.JPG',
+  },
+  {
+    name: 'Potosí',
+    capital: 'Potosí',
+    gradient: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Fachada_principal_casa_de_moneda.jpg/960px-Fachada_principal_casa_de_moneda.jpg',
+  },
+  {
+    name: 'Tarija',
+    capital: 'Tarija',
+    gradient: 'linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Plaza_de_Armas_Luis_de_Fuentes_y_Vargas_%28Plaza_Principal%29_-_Tarija_-_Bolivia.jpg/960px-Plaza_de_Armas_Luis_de_Fuentes_y_Vargas_%28Plaza_Principal%29_-_Tarija_-_Bolivia.jpg',
+  },
+  {
+    name: 'Santa Cruz',
+    capital: 'Santa Cruz',
+    gradient: 'linear-gradient(135deg, #fccb90 0%, #d57eeb 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Catedral_Metropolitana_Bas%C3%ADlica_menor_de_San_Lorenzo.jpg/960px-Catedral_Metropolitana_Bas%C3%ADlica_menor_de_San_Lorenzo.jpg',
+  },
+  {
+    name: 'Beni',
+    capital: 'Trinidad',
+    gradient: 'linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Catedral_de_la_Sant%C3%ADsima_Trinidad.JPG/960px-Catedral_de_la_Sant%C3%ADsima_Trinidad.JPG',
+  },
+  {
+    name: 'Pando',
+    capital: 'Cobija',
+    gradient: 'linear-gradient(135deg, #f5576c 0%, #ff9a9e 100%)',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/43/Ciudad_de_Cobija%2C_Bol.jpg/960px-Ciudad_de_Cobija%2C_Bol.jpg',
+  },
 ];
 
 function WelcomePage() {
@@ -178,7 +224,11 @@ function WelcomePage() {
             >
               <div
                 className="welcome__dest-card-bg"
-                style={{ background: dept.gradient }}
+                style={{
+                  background: dept.image
+                    ? `url(${dept.image}) center/cover no-repeat`
+                    : dept.gradient,
+                }}
               />
               <div className="welcome__dest-card-content">
                 <h3 className="welcome__dest-card-name">{dept.name}</h3>

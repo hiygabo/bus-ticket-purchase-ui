@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getTravels, desactivateTravel } from "../../../services/TravelService";
+import { getTravels } from "../../../services/TravelService";
 import { useNavigate } from "react-router-dom";
 
 function TravelList(){
@@ -20,25 +20,6 @@ function TravelList(){
 
     const handleGoToEdit = async (travel: any) => {
         navigate(`/edit-travel/${travel.id_travel}`, {state: {travelInfo : travel}})
-    }
-
-    const handleDesactivateTravel = async (id: number) => {
-        const confirm = window.confirm("Are you sure to desactivate this travel?")
-        if(!confirm) return;
-
-        try{
-            await desactivateTravel(id);
-            setTravels(prevTravels => 
-                prevTravels.map(travel => 
-                    travel.id_travel === id ? {...travel, status: 'INACTIVE'}: travel
-                )
-            )
-            
-        }catch(error){
-            console.error("Error to desactivate travel", error);
-        }
-
-
     }
 
     return(
@@ -65,11 +46,8 @@ function TravelList(){
                             <td>{travel.price}</td>
                             <td>{travel.status}</td>
                             <td>
-                                <button onClick={() => handleDesactivateTravel(travel.id_travel)}>
-                                    {travel.status === 'ACTIVE' ? 'DISABLE': 'INACTIVE'}
-                                </button>
                                 <button onClick={() => handleGoToEdit(travel)}>
-                                    Edit
+                                    Manage
                                 </button>
                             </td>
                         </tr>

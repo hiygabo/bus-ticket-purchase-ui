@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/AuthService";
+import "./Login.css";
 
 function Login(){
     const [ email, setEmail] = useState('');
@@ -16,6 +17,7 @@ function Login(){
         try{
             const data = await login(email, password);
             localStorage.setItem('admin_token', data.access_token);
+            window.dispatchEvent(new Event('auth-changed'));
             navigate('/admin');
 
         }catch(error){
@@ -26,18 +28,19 @@ function Login(){
 
     return (
         <>
-            <p>{error}</p>
+            <h1>Admin Login</h1>
+            {error && <p className="login__error" role="alert">{error}</p>}
             <form onSubmit={handleLogin}>
                 <div>
-                    <label>Email</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                    <label htmlFor="login_email">Email</label>
+                    <input id="login_email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                 </div>
                 <div>
-                    <label>Password</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
+                    <label htmlFor="login_password">Password</label>
+                    <input id="login_password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
                 <button type="submit">
-                    LOGIN
+                    Login
                 </button>
             </form>
         </>

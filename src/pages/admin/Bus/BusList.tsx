@@ -1,4 +1,4 @@
-import { desactivateBus, getBuses } from "../../../services/BusService";
+import { getBuses } from "../../../services/BusService";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,21 +18,6 @@ function BusList(){
         fetchBuses();
 
     }, [])
-    const handleDesactivateBus = async (id: number) => {
-        const confirm = window.confirm("Are you sure to desactivate this bus?");
-        if(!confirm) return;
-
-        try{
-            await desactivateBus(id);
-            setBuses(prevBuses => 
-                prevBuses.map(bus => 
-                    bus.id_bus === id? {...bus, bus_status : 'INACTIVE'} : bus
-                )
-            );
-        }catch(error){
-            console.error("Error to desactivate bus", error);
-        }
-    }
 
     const handleGoToEdit = (bus: any) => {
         navigate(`/edit-bus/${bus.id_bus}`, {state: {busInfo:bus}})
@@ -58,11 +43,8 @@ function BusList(){
                             <td>{bus.bus_state}</td>
                             <td>{bus.category?.category_name}</td>
                             <td>
-                                <button onClick={() => handleDesactivateBus(bus.id_bus)}>
-                                    {bus.bus_state === 'ACTIVE'? 'DISABLE': 'INACTIVE'}
-                                </button>
                                 <button onClick={() => handleGoToEdit(bus)}>
-                                    Edit
+                                    Manage
                                 </button>
                             </td>
                         </tr>
