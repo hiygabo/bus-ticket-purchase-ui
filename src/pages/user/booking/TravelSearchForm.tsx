@@ -5,6 +5,31 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap, Marker, Tooltip } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+
+type Stop = {
+    id_stop: number;
+    stop_name: string;
+    place?: { place_name?: string };
+};
+
+type Travel = {
+    id_travel: number;
+    departure_date: string;
+    price?: number | string;
+    schedule?: {
+        departure_time?: string;
+        estimated_arrival_time?: string;
+        estimated_travel_time?: string;
+    };
+    travel_origin?: any;
+    travel_destiny?: any;
+    route?: any;
+    bus?: {
+        bus_plate?: string;
+        seats?: Array<{ id_seat: number; seat_number: number }>;
+    };
+};
+
 const originIcon = new L.Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',

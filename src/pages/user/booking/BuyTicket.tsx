@@ -153,20 +153,15 @@ function BuyTicket(){
                             const occupied = occupiedSeats.includes(seatInfo.id_seat);
                             const selected = selectedSeat?.id_seat === seatInfo.id_seat;
 
-                            let bgColor = '#fff';
-                            let textColor = '#333';
-                            if(selected){
-                                bgColor = '#4CAF50';
-                                textColor = '#fff';
-                            }else if(occupied) {
-                                bgColor = '#f44336';
-                                textColor = '#fff';
-                            }
                             return (
                                 <button
                                     key={seatInfo.id_seat}
                                     onClick={() => !occupied && setSelectedSeat(seatInfo)}
                                     disabled={occupied}
+                                    style={{
+                                        backgroundColor: selected ? '#4CAF50' : occupied ? '#f44336' : '#fff',
+                                        color: selected || occupied ? '#fff' : '#333',
+                                    }}
                                 >
                                     {seatInfo.seat_number}
                                 </button>
