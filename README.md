@@ -18,7 +18,7 @@ The system is built using the following tools and technologies:
 - ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) Runtime
 
 ## Demonstration
-
+<img width="692" height="388" alt="Image" src="https://github.com/user-attachments/assets/09c3bd2b-b6de-4b86-acc4-2063980be489" />
 ## How to run locally
 
 ### Using Docker
