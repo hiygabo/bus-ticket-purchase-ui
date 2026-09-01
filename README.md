@@ -1,19 +1,19 @@
 # Bus Ticket Purchase UI
 ## Objetive
 
-This project has been developed with the purpose to allow the  ticket purchase to travels that take place on buses, most especify in buses terminals that manage their travel sales at the same terminal, forcing to the people to buy their travel tickets at the terminal. So this system allows realize the purchase entirely online, allowing view the travel route, time estimated, travel time arrive and download the ticket on PDF format.
+This project was developed to digitize and stereamline the bus ticket purchasing process. Traditionally, bus terminals force passengers to buy tickets on-site, this system enables users to complete their purchases entirely online, offering features like route visualization, estimated departure and arrivale times, and automated PDF ticket generation.
 
 ## Technologies
-The system has the next technologies:
+The system is built using the next tools:
 - Framework: React
 - Language: Typescript 
-- Building: Vite 
-- Enrouting: React Router 
+- Build tool: Vite 
+- Routing: React Router 
 - Styles: CSS
 - Http Client: Axios
 
-## Demostration
+## Demonstration
 
 
-## How to install
+## How to run locally
 
