@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap, Marker, Tooltip } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import Swal from "sweetalert2";
 
 type Stop = {
     id_stop: number;
@@ -106,7 +107,7 @@ function TravelSearchForm() {
             setAvailableTravels(filterTravels);
 
             if (filterTravels.length === 0) {
-                alert("There aren't available travels on this date and route");
+                Swal.fire("No travels", "There aren't available travels on this date and route", "info");
             }
         } catch (error) {
             console.error("Error to search travels", error);

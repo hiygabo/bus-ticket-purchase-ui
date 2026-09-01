@@ -1,6 +1,7 @@
 import { createPassenger } from "../../../services/PassengerService";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 function ReservationForm () {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ function ReservationForm () {
         }
         try{
             const response = await createPassenger(payload);
-            alert("Reservation created successfully")
+            Swal.fire("Success", "Reservation created successfully", "success");
             navigate('/travel-search', {
                 state: {
                     passengerId: response.id_passenger,
@@ -32,7 +33,7 @@ function ReservationForm () {
             })
 
         } catch (error){
-            alert("Error to create reservation");
+            Swal.fire("Error", "Error to create reservation", "error");
             console.log("Error to create reservation: ", error)
         }
     }

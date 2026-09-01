@@ -1,7 +1,14 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function AdminPanel() {
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!localStorage.getItem('admin_token')) {
+            navigate('/login');
+        }
+    }, [navigate]);
 
     return (
         <div className="admin-panel">

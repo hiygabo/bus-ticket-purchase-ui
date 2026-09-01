@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { editBus } from "../../../services/BusService";
 import { getCategories } from "../../../services/CategoryService";
+import Swal from "sweetalert2";
 
 function EditBus(){
     const location = useLocation();
@@ -43,7 +44,7 @@ function EditBus(){
 
         try{
             await editBus(busInfo.id_bus, payload);
-            alert("Bus edited succesfully");
+            Swal.fire("Success", "Bus edited succesfully", "success");
             navigate("/buses-list")
         }catch(error){
             console.error(error)

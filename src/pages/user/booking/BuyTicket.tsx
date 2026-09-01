@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import { createTravelDetail } from "../../../services/TravelDetailService";
 import { getOccupiedSeats } from "../../../services/TravelDetailService";
 function BuyTicket(){
@@ -24,7 +25,7 @@ function BuyTicket(){
                     const data = await getOccupiedSeats(travel.id_travel);
                     setOcuppiedSeats(data);
                 }catch(error){
-                    alert("Error fetching occupied seats");
+                    Swal.fire("Error", "Error fetching occupied seats", "error");
                     console.error(error);
                 }
             }
@@ -39,7 +40,7 @@ function BuyTicket(){
 
     const handleBuyTicket = async () => {
         if (!selectedSeat) {
-            alert("Please select a seat first");
+            Swal.fire("Warning", "Please select a seat first", "warning");
             return;
         }
 
@@ -55,9 +56,9 @@ function BuyTicket(){
             if(result && result.id_detail){
                 setPurchasedTicketId(result.id_detail);
                 console.log("Ticket saved", result);
-                alert("Ticket Bought successfully!!")
+                Swal.fire("Success", "Ticket Bought successfully!!", "success")
             }else{
-                alert("Error to save ticket")
+                Swal.fire("Error", "Error to save ticket", "error")
             }
         }catch (error) {
             console.error("error", error);

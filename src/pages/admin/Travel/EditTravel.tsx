@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getBuses } from "../../../services/BusService";
 import { getStops } from "../../../services/StopService";
 import { getSchedules } from "../../../services/ScheduleService";
+import Swal from "sweetalert2";
 function EditTravel () {
     const location = useLocation();
     const navigate = useNavigate();
@@ -90,7 +91,7 @@ function EditTravel () {
         }
         try{
             await editTravel(travelInfo.id_travel, payload);
-            alert("Travel edited succesfully");
+            Swal.fire("Success", "Travel edited succesfully", "success");
             navigate("/travel-list");
         }catch(error){
             console.error("Error to saving travel data", error);

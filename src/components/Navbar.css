@@ -114,6 +114,47 @@
   transform: scaleX(1);
 }
 
+/* ---------- Login ---------- */
+
+.navbar__login {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  padding: 8px 16px;
+  background: var(--nav-text);
+  border: 1px solid var(--nav-text);
+  border-radius: 999px;
+  color: var(--nav-bg);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.1s ease;
+}
+
+.navbar__login:hover {
+  background: var(--nav-surface);
+  border-color: var(--nav-surface);
+  color: var(--nav-text);
+}
+
+.navbar__login:active {
+  transform: translateY(1px);
+}
+
+/* ---------- Admin ---------- */
+
+.navbar__admin {
+  color: var(--nav-text-muted);
+  margin-left: 8px;
+}
+
 /* ---------- Logout ---------- */
 
 .navbar__logout {
@@ -180,7 +221,8 @@
     font-size: 13px;
   }
 
-  .navbar__logout {
+  .navbar__logout,
+  .navbar__login {
     margin-left: 0;
     margin-top: 4px;
   }
