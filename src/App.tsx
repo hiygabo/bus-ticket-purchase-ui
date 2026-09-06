@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WelcomePage from './pages/user/WelcomePage';
-import ReservationForm from './pages/user/Booking/ReservationForm';
 import TravelSearchForm from './pages/user/Booking/TravelSearchForm';
 import BuyTicket from './pages/user/Booking/BuyTicket';
 import TravelList from './pages/admin/Travel/TravelsList';
@@ -28,7 +27,6 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<WelcomePage />} />
-        <Route path="/reservation" element={<ReservationForm/>}></Route>
         <Route path="/about" element={<AboutUs />}/>
         <Route path="/travel-search" element={<TravelSearchForm/>}/>
         <Route path="/buy-ticket" element={<BuyTicket/>}/>
