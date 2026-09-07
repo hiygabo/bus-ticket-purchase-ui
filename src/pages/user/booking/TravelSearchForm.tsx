@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getStops } from "../../../services/StopService";
 import { getActiveTravels } from "../../../services/TravelService";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, GeoJSON, useMap, Marker, Tooltip } from "react-leaflet";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -58,8 +58,6 @@ function MapAutoZoom({routeData}: { routeData: any}) {
     return null;
 }
 function TravelSearchForm() {
-    const location = useLocation();
-    const { ci, full_name, passengerId} = location.state || {};
     const [stops, setStops] = useState<Stop[]>([]);
     const [availableTravels, setAvailableTravels] = useState<Travel[]>([]);
     const [searchData, setSearchData] = useState({
@@ -118,12 +116,6 @@ function TravelSearchForm() {
     return (
         <>
         <h1> SEARCH YOUR TRAVEL</h1>
-        {full_name && (
-            <div>
-                <strong>NAME:</strong> {full_name} <br />
-                <strong>CI:</strong> {ci}
-            </div>
-        )}
             <form onSubmit={handleSearch}>
                 <div>
                     <label>ORIGIN</label>
@@ -190,11 +182,7 @@ function TravelSearchForm() {
                                     VIEW ROUTE
                                 </button>
                                 <button onClick={() => navigate("/buy-ticket", {
-                                    state: { travel: travel,
-                                            full_name: full_name,
-                                            ci: ci,
-                                            passengerId: passengerId
-                                     }
+                                    state: { travel: travel}
                                 })}>
                                     BUY TICKET
                                 </button>
