@@ -7,17 +7,18 @@ function BuyTicket(){
     const [selectedSeat, setSelectedSeat] = useState<any>(null);
     const [occupiedSeats, setOcuppiedSeats] = useState<number[]>([]);
     const [purchasedTicketId, setPurchasedTicketId] = useState<number | null>(null);
+    const [formData, setFormData] = useState({
+        passenger_full_name: '',
+        passenger_ci: ''
+    })
     const location = useLocation();
     const navigate = useNavigate();
     const travel = location.state?.travel;
     const origin = travel.travel_origin;
     const destiny = travel.travel_destiny;
-    const full_name= location.state?.full_name;
-    const CI = location.state?.ci;
-    const passengerId = location.state?.passengerId;
     const seatsList = travel.bus?.seats || [];
     const sortedSeats = [...seatsList].sort((a,b) => a.seat_number - b.seat_number);
-
+    
     useEffect(() => {
         if(travel?.id_travel) {
             const fetchOccupiedSeats = async () => {
@@ -37,8 +38,16 @@ function BuyTicket(){
         return <h2>404 Travel Not Found</h2>
 
     }
+    const handleChange = (e) =>{
+        const {name, value} = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value
+        }))
+    }
 
-    const handleBuyTicket = async () => {
+    const handleBuyTicket = async (e) => {
+        e.preventDefault();
         if (!selectedSeat) {
             Swal.fire("Warning", "Please select a seat first", "warning");
             return;
@@ -48,7 +57,10 @@ function BuyTicket(){
             ticket_price : Number(travel.price),
             id_travel: Number(travel.id_travel),
             id_seat: Number(selectedSeat.id_seat),
-            id_passenger: Number(passengerId)
+            passenger_full_name: formData.passenger_full_name,
+            passenger_ci: formData.passenger_ci,
+
+
         }
 
         try{
@@ -69,7 +81,7 @@ function BuyTicket(){
     if(purchasedTicketId !== null){
         return(
             <>
-                <h2>THANK YOU, {full_name}, your ticket has been generated correctly</h2>
+                <h2>THANK YOU,  your ticket has been generated correctly</h2>
 
                 <div className="ticket-box">
                     <p className="ticket-box__route">
@@ -111,35 +123,41 @@ function BuyTicket(){
     return(
 
         <>
-            <h2>STEP 3 CHECK DATA TRAVEL</h2>
+            <h2>STEP 3 COMPLETE DATA TRAVEL</h2>
 
-            <h3>YOUR DATA</h3>
+            <h3>PLEASE, COMPLETE DATA INFORMATION ABOUT PASSENGERS THAT TAKE THE TRAVEL</h3>
 
-            <strong>FULL NAME: {full_name}</strong>
-            <strong>CI: {CI}</strong>
-            <strong>TRAVEL Nº:{travel.id_travel}</strong>
-            <strong> DATE: {travel.departure_date}</strong>
-            <strong>DEPARTURE TIME: {travel.schedule?.departure_time}</strong>
-            <strong>ESTIMATED ARRIVAL TIME: {travel.schedule?.estimated_arrival_time}</strong>
-            <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
-            <strong>PRICE: {travel.price}</strong>
-            <strong>BUS PLATE: {travel.bus?.bus_plate}</strong>
-            <div>
-                <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
-            </div>
-            <div>
-                <p>DESTINY: {destiny?.place?.place_name} - {travel.travel_destiny?.stop_name}</p>
-            </div>
+            <form onSubmit={handleBuyTicket}>
+                <label> FULL_NAME:</label>
+                <input name="passenger_full_name" type="text" value={formData.passenger_full_name} onChange={handleChange} required/>
 
-            <h2>STEP 4 SELECT YOUR SEAT</h2>
-            <div style={{ 
-                backgroundColor: '#eee', 
-                padding: '30px', 
-                borderRadius: '10px', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center' 
-            }}>
+                <label> CI:</label>
+                <input type="text" name="passenger_ci" value={formData.passenger_ci} onChange={handleChange} required />
+
+                 <h3>DATA TRAVEL</h3>
+                <strong>TRAVEL Nº:{travel.id_travel}</strong>
+                <strong> DATE: {travel.departure_date}</strong>
+                <strong>DEPARTURE TIME: {travel.schedule?.departure_time}</strong>
+                <strong>ESTIMATED ARRIVAL TIME: {travel.schedule?.estimated_arrival_time}</strong>
+                <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
+                <strong>PRICE: {travel.price}</strong>
+                <strong>BUS PLATE: {travel.bus?.bus_plate}</strong>
+                <div>
+                    <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
+                </div>
+                <div>
+                    <p>DESTINY: {destiny?.place?.place_name} - {travel.travel_destiny?.stop_name}</p>
+                </div>
+
+                <h2>STEP 4 SELECT YOUR SEAT</h2>
+                <div style={{ 
+                    backgroundColor: '#eee', 
+                    padding: '30px', 
+                    borderRadius: '10px', 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center' 
+                }}>
 
                 {sortedSeats.length === 0 ? (
                     <p>No seats found for this bus</p>
@@ -156,6 +174,7 @@ function BuyTicket(){
 
                             return (
                                 <button
+                                    type="button"
                                     key={seatInfo.id_seat}
                                     onClick={() => !occupied && setSelectedSeat(seatInfo)}
                                     disabled={occupied}
@@ -172,14 +191,13 @@ function BuyTicket(){
                     </div> 
  
                 )}
-                <button onClick={handleBuyTicket}>
+            </div>
+                <button type="submit">
                     BUY
                 </button>
+            </form>
 
-
-
-            </div>
-
+           
         </>
     )
 
