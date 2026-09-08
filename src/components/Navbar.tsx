@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logos/logocop.png';
 import './Navbar.css';
+import { jwtDecode } from 'jwt-decode';
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -14,6 +15,18 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => !!localStorage.getItem('admin_token')
   );
+
+  let userName = '';
+  const token = localStorage.getItem('admin_token');
+  
+  if (token) {
+    try {
+      const decoded: any = jwtDecode(token);
+      userName = decoded.full_name || '';
+    } catch {
+      userName = '';
+    }
+  }
 
   useEffect(() => {
     const handleAuthChange = () => {
@@ -58,7 +71,9 @@ function Navbar() {
         </nav>
 
         {isAuthenticated ? (
+
           <>
+          {userName && <span className="navbar__greeting">Hi, {userName}</span>}
             <NavLink
               to="/admin"
               className={({ isActive }) =>

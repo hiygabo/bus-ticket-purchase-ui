@@ -22,7 +22,7 @@ function BuyTicket(){
     const destiny = travel.travel_destiny;
     const seatsList = travel.bus?.seats || [];
     const sortedSeats = [...seatsList].sort((a,b) => a.seat_number - b.seat_number);
-    const tkUName = localStorage.getItem('admin-token');
+    const tkUName = localStorage.getItem('admin_token');
     let userName = "Traveler";
     if(tkUName) {
         try{
@@ -71,7 +71,7 @@ function BuyTicket(){
             Swal.fire("Warning", "Please select a seat first", "warning");
             return;
         }
-        const token = localStorage.getItem('admin-token');
+        const token = localStorage.getItem('admin_token');
         const decodedToken = jwtDecode(token);
         const id_user = decodedToken.sub;
 
