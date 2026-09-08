@@ -28,7 +28,7 @@ function Login(){
 
     return (
         <>
-            <h1>Admin Login</h1>
+            <h1>LOGIN</h1>
             {error && <p className="login__error" role="alert">{error}</p>}
             <form onSubmit={handleLogin}>
                 <div>

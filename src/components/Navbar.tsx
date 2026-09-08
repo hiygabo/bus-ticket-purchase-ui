@@ -5,7 +5,7 @@ import './Navbar.css';
 
 const navItems = [
   { to: '/', label: 'Home' },
-  { to: '/reservation', label: 'Book a Ticket' },
+  { to: '/travel-search', label: 'Book a Ticket' },
   { to: '/about', label: 'About Us' },
 ];
 
