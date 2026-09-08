@@ -17,14 +17,17 @@ function Navbar() {
   );
 
   let userName = '';
+  let role = '';
   const token = localStorage.getItem('admin_token');
   
   if (token) {
     try {
       const decoded: any = jwtDecode(token);
       userName = decoded.full_name || '';
+      role = decoded.role;
     } catch {
       userName = '';
+      role = '';
     }
   }
 
@@ -74,7 +77,9 @@ function Navbar() {
 
           <>
           {userName && <span className="navbar__greeting">Hi, {userName}</span>}
-            <NavLink
+
+            {role == 'ADMIN'? (
+              <NavLink
               to="/admin"
               className={({ isActive }) =>
                 `navbar__link navbar__admin ${isActive ? 'navbar__link--active' : ''}`.trim()
@@ -82,6 +87,7 @@ function Navbar() {
             >
               Admin
             </NavLink>
+            ):null}
             <button
               type="button"
               className="navbar__logout"

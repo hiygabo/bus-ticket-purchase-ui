@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../services/AuthService";
+import { jwtDecode } from "jwt-decode";
 import "./Login.css";
 
 function Login(){
@@ -18,7 +19,12 @@ function Login(){
             const data = await login(email, password);
             localStorage.setItem('admin_token', data.access_token);
             window.dispatchEvent(new Event('auth-changed'));
-            navigate('/admin');
+            const decoded: any = jwtDecode(data.access_token);
+            if(decoded.role === 'ADMIN'){
+                navigate('/admin');
+            } else {
+                navigate ('/')
+            }
 
         }catch(error){
             setError('Wrong Email or Password, try again');
