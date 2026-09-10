@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPlaces } from "../../services/PlaceService";
 import Swal from "sweetalert2";
+import "./SignUp.css";
 function SignUp (){
 
     const [formData, setFormData] = useState({
@@ -64,25 +65,34 @@ function SignUp (){
 
     return(
     <>
-        <form onSubmit={handleSignUp}>
-            <label>YOUR NAME: </label>
-            <input type="text" name="full_name" value={formData.full_name} onChange={handleChange} required/>
+        <h1>SIGN UP</h1>
+        <form id="signup_form" onSubmit={handleSignUp}>
+            <div>
+                <label htmlFor="signup_name">YOUR NAME</label>
+                <input id="signup_name" type="text" name="full_name" value={formData.full_name} onChange={handleChange} required/>
+            </div>
 
-            <label>YOUR EMAIL</label>
-            <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            <div>
+                <label htmlFor="signup_email">YOUR EMAIL</label>
+                <input id="signup_email" type="email" name="email" value={formData.email} onChange={handleChange} required />
+            </div>
 
-            <label> YOUR PASSWORD </label>
-            <input type="password" name="password" value={formData.password} onChange={handleChange} required />
+            <div>
+                <label htmlFor="signup_password">YOUR PASSWORD</label>
+                <input id="signup_password" type="password" name="password" value={formData.password} onChange={handleChange} required />
+            </div>
 
-            <label> YOUR CITY </label>
-            <select name="id_place" value={formData.id_place} onChange={handleChange} required>
-                <option value="" disabled>Select your city...</option>
-                {Array.isArray(places) && places.map((place) => (
-                    <option key={place.id_place} value={place.id_place}>
-                        {place.place_name}
-                    </option>
-                ))}
-            </select>
+            <div>
+                <label htmlFor="signup_city">YOUR CITY</label>
+                <select id="signup_city" name="id_place" value={formData.id_place} onChange={handleChange} required>
+                    <option value="" disabled>Select your city...</option>
+                    {Array.isArray(places) && places.map((place) => (
+                        <option key={place.id_place} value={place.id_place}>
+                            {place.place_name}
+                        </option>
+                    ))}
+                </select>
+            </div>
 
             <button type="submit">
                 CREATE ACCOUNT
