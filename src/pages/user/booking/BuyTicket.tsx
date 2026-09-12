@@ -75,7 +75,8 @@ function BuyTicket(){
 
 
 
-    const handleBuyTicket = async () => {
+    const handleBuyTicket = async (e: React.FormEvent) => {
+        e.preventDefault();
         if (!selectedSeat) {
             Swal.fire("Warning", "Please select a seat first", "warning");
             return;
@@ -209,6 +210,7 @@ function BuyTicket(){
                             const selected = selectedSeat?.id_seat === seatInfo.id_seat;
                             return (
                                 <button
+                                    type="button"
                                     key={seatInfo.id_seat}
                                     onClick={() => !occupied && setSelectedSeat(seatInfo)}
                                     disabled={occupied}
