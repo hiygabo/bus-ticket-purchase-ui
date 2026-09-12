@@ -18,6 +18,15 @@ function BuyTicket(){
     const location = useLocation();
     const navigate = useNavigate();
     const travel = location.state?.travel;
+    useEffect(() => {
+        if(!travel) {
+            navigate('/travel-search')
+        }
+    }, [travel, navigate])
+
+    if(!travel) {
+        return null;
+    }
     const origin = travel.travel_origin;
     const destiny = travel.travel_destiny;
     const seatsList = travel.bus?.seats || [];
@@ -72,6 +81,11 @@ function BuyTicket(){
             return;
         }
         const token = localStorage.getItem('admin_token');
+        if(!token) {
+            Swal.fire("Error", "You must be logged in to buy a ticket", "error");
+            navigate('/login');
+            return;
+        }
         const decodedToken = jwtDecode(token);
         const id_user = decodedToken.sub;
 
