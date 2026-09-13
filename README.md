@@ -2,7 +2,7 @@
 
 ## Objective
 
-This project was developed to digitize and streamline the bus ticket purchasing process. Traditionally, bus terminals force passengers to buy tickets on-site, this system enables users to complete their purchases entirely online, offering features like route visualization, estimated departure and arrivale times, and automated PDF ticket generation.
+This project was developed to digitize and streamline the bus ticket purchasing process. Traditionally, bus terminals force passengers to buy tickets on-site, this system enables users to complete their purchases entirely online, offering features like route visualization, estimated departure and arrivale times, and automated PDF ticket generation. 
 
 ## Technologies
 
