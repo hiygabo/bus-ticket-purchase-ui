@@ -99,7 +99,7 @@ function BuyTicket(){
             return;
         }
 
-        if (!setSelectedPaymentTypes) {
+        if (!selectedPaymentTypes) {
             Swal.fire("Warning", "Please select a payment method", "warning");
             return;
         }
@@ -266,10 +266,34 @@ function BuyTicket(){
                             {type.name} 
                         </button>
                     ))}
+
+                    {selectedPaymentTypes?.name === "QR" && (
+                        <div>
+                            <h3>SIMPLE QR</h3>
+
+                            <p>INSTRUCTIONS</p>
+                            <ul>
+                                <li> Scan QR code until money bank app</li>
+                                <li> Pay exact amount <strong>{travel.price}</strong></li>
+                                <li> Insert the reference number/comprobant </li>
+                            </ul> 
+                            <label htmlFor="">Reference number or comprobant</label>
+                            <input 
+                                type="text" 
+                                name="transaction_code"
+                                placeholder="Ej: 123456648"
+                                value={formData.transaction_code}
+                                onChange={handleChange}
+                                required={selectedPaymentTypes?.name === 'QR'}
+                            />
+                        </div>
+                       
+                    )}
                 </div>
                 <button type="submit">
                     BUY
                 </button>
+
             </form>
         </>
     )
