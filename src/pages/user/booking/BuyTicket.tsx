@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { createTravelDetail } from "../../../services/TravelDetailService";
 import { getOccupiedSeats } from "../../../services/TravelDetailService";
+import { createPayment } from "../../../services/PaymentService";
+import { getPaymentTypes } from "../../../services/PaymentService";
 import { jwtDecode } from "jwt-decode";
 
 function BuyTicket(){
@@ -12,7 +14,8 @@ function BuyTicket(){
     const [purchasedTicketId, setPurchasedTicketId] = useState<number | null>(null);
     const [formData, setFormData] = useState({
         passenger_full_name: '',
-        passenger_ci: ''
+        passenger_ci: '',
+        transaction_code: ''
     })
 
     const location = useLocation();
@@ -41,6 +44,20 @@ function BuyTicket(){
             console.error("Error to decodificate token", error);
         }
     }
+    const [paymentTypes, setPaymentTypes] = useState<any[]>([]);
+    const [selectedPaymentTypes, setSelectedPaymentTypes] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchPaymentsTypes = async () => {
+            try{
+                const types = await getPaymentTypes();
+                setPaymentTypes(types);
+            }catch (error) {
+                console.error("Error fetching types", error);
+            }
+        }
+        fetchPaymentsTypes();
+    }, [])
 
     useEffect(() => {
 
@@ -81,6 +98,11 @@ function BuyTicket(){
             Swal.fire("Warning", "Please select a seat first", "warning");
             return;
         }
+
+        if (!setSelectedPaymentTypes) {
+            Swal.fire("Warning", "Please select a payment method", "warning");
+            return;
+        }
         const token = localStorage.getItem('admin_token');
         if(!token) {
             Swal.fire("Error", "You must be logged in to buy a ticket", "error");
@@ -90,25 +112,32 @@ function BuyTicket(){
         const decodedToken = jwtDecode(token);
         const id_user = decodedToken.sub;
 
-        const payload = {
+        const ticketPayload = {
             ticket_price : Number(travel.price),
             id_travel: Number(travel.id_travel),
             id_seat: Number(selectedSeat.id_seat),
             passenger_full_name: formData.passenger_full_name,
             passenger_ci: formData.passenger_ci,
             id_user: Number(id_user),
-        }
+        };
 
         try{
-            const result = await createTravelDetail(payload);
-            if(result && result.id_detail){
-                setPurchasedTicketId(result.id_detail);
-                console.log("Ticket saved", result);
-                Swal.fire("Success", "Ticket Bought successfully!!", "success")
-            }else{
-                Swal.fire("Error", "Error to save ticket", "error")
-            }
+            const ticketResult = await createTravelDetail(ticketPayload);
+            const ticketId = ticketResult?.id_detail || ticketResult?.data?.id_detail || ticketResult?.id;
 
+            if(ticketId) {
+                const paymentPayload = {
+                    amount: Number(travel.price),
+                    transaction_code: formData.transaction_code,
+                    id_payment_type: Number(selectedPaymentTypes.id_payment_type),
+                    id_travel_detail: Number(ticketId)
+                };
+
+                await createPayment(paymentPayload);
+
+                setPurchasedTicketId(ticketId);
+                Swal.fire("Success", "Ticket and payment processed successfully", "success");
+            }
         }catch (error) {
             console.error("error", error);
         }
@@ -226,6 +255,18 @@ function BuyTicket(){
                     </div>
                 )}
             </div>
+                <h2>STEP 5 SELECT YOUR PAYMENT METHOD</h2>
+                <div>
+                    {paymentTypes.map((type) => (
+                        <button
+                            key={type.id_payment_type}
+                            type="button"
+                            onClick={() => setSelectedPaymentTypes(type)}
+                        >
+                            {type.name} 
+                        </button>
+                    ))}
+                </div>
                 <button type="submit">
                     BUY
                 </button>
