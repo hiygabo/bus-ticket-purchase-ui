@@ -217,10 +217,10 @@ function WelcomePage() {
             <article
               key={dept.name}
               className="welcome__dest-card"
-              onClick={() => navigate('/reservation')}
+              onClick={() => navigate('/travel-search')}
               role="link"
               tabIndex={0}
-              onKeyDown={(e) => e.key === 'Enter' && navigate('/reservation')}
+              onKeyDown={(e) => e.key === 'Enter' && navigate('/travel-search')}
             >
               <div
                 className="welcome__dest-card-bg"
@@ -248,7 +248,7 @@ function WelcomePage() {
           Ready to travel?{' '}
           <button
             className="welcome__dest-cta-btn"
-            onClick={() => navigate('/reservation')}
+            onClick={() => navigate('/travel-search')}
           >
             Book your ticket now
           </button>

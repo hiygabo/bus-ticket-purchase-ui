@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logos/logocop.png';
 import './Navbar.css';
+import { jwtDecode } from 'jwt-decode';
 
 const navItems = [
   { to: '/', label: 'Home' },
-  { to: '/reservation', label: 'Book a Ticket' },
+  { to: '/travel-search', label: 'Book a Ticket' },
   { to: '/about', label: 'About Us' },
 ];
 
@@ -14,6 +15,21 @@ function Navbar() {
   const [isAuthenticated, setIsAuthenticated] = useState(
     () => !!localStorage.getItem('admin_token')
   );
+
+  let userName = '';
+  let role = '';
+  const token = localStorage.getItem('admin_token');
+  
+  if (token) {
+    try {
+      const decoded: any = jwtDecode(token);
+      userName = decoded.full_name || '';
+      role = decoded.role;
+    } catch {
+      userName = '';
+      role = '';
+    }
+  }
 
   useEffect(() => {
     const handleAuthChange = () => {
@@ -58,8 +74,12 @@ function Navbar() {
         </nav>
 
         {isAuthenticated ? (
+
           <>
-            <NavLink
+          {userName && <span className="navbar__greeting">Hi, {userName}</span>}
+
+            {role == 'ADMIN'? (
+              <NavLink
               to="/admin"
               className={({ isActive }) =>
                 `navbar__link navbar__admin ${isActive ? 'navbar__link--active' : ''}`.trim()
@@ -67,17 +87,17 @@ function Navbar() {
             >
               Admin
             </NavLink>
+            ):null}
             <button
               type="button"
               className="navbar__logout"
               onClick={handleLogout}
               aria-label="Log out"
             >
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path
-                  d="M10 17v-2h8V9h-8V7l-5 5 5 5zm-8-2h8v2H2v-2zm0-6h8v2H2V9zm0 0"
-                  fill="currentColor"
-                />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                <path d="M16 17l5-5-5-5" />
+                <path d="M21 12H9" />
               </svg>
               Log out
             </button>
