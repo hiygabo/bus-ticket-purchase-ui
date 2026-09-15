@@ -21,31 +21,14 @@ function BuyTicket(){
     const location = useLocation();
     const navigate = useNavigate();
     const travel = location.state?.travel;
+    const [paymentTypes, setPaymentTypes] = useState<any[]>([]);
+    const [selectedPaymentTypes, setSelectedPaymentTypes] = useState<any>(null);
+
     useEffect(() => {
         if(!travel) {
             navigate('/travel-search')
         }
     }, [travel, navigate])
-
-    if(!travel) {
-        return null;
-    }
-    const origin = travel.travel_origin;
-    const destiny = travel.travel_destiny;
-    const seatsList = travel.bus?.seats || [];
-    const sortedSeats = [...seatsList].sort((a,b) => a.seat_number - b.seat_number);
-    const tkUName = localStorage.getItem('admin_token');
-    let userName = "Traveler";
-    if(tkUName) {
-        try{
-            const decodedToken: any = jwtDecode(tkUName);
-            userName = decodedToken.full_name || "Traveler";
-        } catch(error){
-            console.error("Error to decodificate token", error);
-        }
-    }
-    const [paymentTypes, setPaymentTypes] = useState<any[]>([]);
-    const [selectedPaymentTypes, setSelectedPaymentTypes] = useState<any>(null);
 
     useEffect(() => {
         const fetchPaymentsTypes = async () => {
@@ -76,13 +59,24 @@ function BuyTicket(){
 
     },[travel]);
 
-
-
-    if(!travel) {
-        return <h2>404 Travel Not Found</h2>
+    const origin = travel.travel_origin;
+    const destiny = travel.travel_destiny;
+    const seatsList = travel.bus?.seats || [];
+    const sortedSeats = [...seatsList].sort((a,b) => a.seat_number - b.seat_number);
+    const tkUName = localStorage.getItem('admin_token');
+    let userName = "Traveler";
+    if(tkUName) {
+        try{
+            const decodedToken: any = jwtDecode(tkUName);
+            userName = decodedToken.full_name || "Traveler";
+        } catch(error){
+            console.error("Error to decodificate token", error);
+        }
     }
 
-    const handleChange = (e) =>{
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
         const {name, value} = e.target;
         setFormData((prevState) => ({
             ...prevState,
@@ -189,15 +183,15 @@ function BuyTicket(){
 
 
     return(
-        <>
-            <h2>STEP 3 COMPLETE DATA TRAVEL</h2>
-            <h3>PLEASE, COMPLETE DATA INFORMATION ABOUT PASSENGERS THAT TAKE THE TRAVEL</h3>
-            <form onSubmit={handleBuyTicket}>
+        <div className="buy-ticket">
+            <h2 className="buy-step">STEP 3 COMPLETE DATA TRAVEL</h2>
+            <h3 className="buy-subtitle">PLEASE, COMPLETE DATA INFORMATION ABOUT PASSENGERS THAT TAKE THE TRAVEL</h3>
+            <form className="buy-form" onSubmit={handleBuyTicket}>
                 <label> FULL_NAME:</label>
                 <input name="passenger_full_name" type="text" value={formData.passenger_full_name} onChange={handleChange} required/>
                 <label> CI:</label>
                 <input type="text" name="passenger_ci" value={formData.passenger_ci} onChange={handleChange} required />
-                 <h3>DATA TRAVEL</h3>
+                 <h3 className="buy-section">DATA TRAVEL</h3>
                 <strong>TRAVEL Nº:{travel.id_travel}</strong>
                 <strong> DATE: {travel.departure_date}</strong>
                 <strong>DEPARTURE TIME: {travel.schedule?.departure_time}</strong>
@@ -205,34 +199,22 @@ function BuyTicket(){
                 <strong>ESTIMATED TRAVEL TIME: {travel.schedule?.estimated_travel_time}</strong>
                 <strong>PRICE: {travel.price}</strong>
                 <strong>BUS PLATE: {travel.bus?.bus_plate}</strong>
-                <div>
+                <div className="buy-route">
                     <p>ORIGIN: {origin?.place?.place_name} - {travel.travel_origin?.stop_name} </p>
                 </div>
-                <div>
+                <div className="buy-route">
                     <p>DESTINY: {destiny?.place?.place_name} - {travel.travel_destiny?.stop_name}</p>
                 </div>
 
-                <h2>STEP 4 SELECT YOUR SEAT</h2>
-                <div style={{
-                    backgroundColor: '#eee',
-                    padding: '30px',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center'
-                }}>
+                <h2 className="buy-step">STEP 4 SELECT YOUR SEAT</h2>
+                <div className="buy-bus">
 
 
 
                 {sortedSeats.length === 0 ? (
                     <p>No seats found for this bus</p>
                 ): (
-                    <div style={{
-                        display: 'grid',
-                        gridTemplateColumns: 'repeat(4, 60px)',
-                        gap: '15px',
-                        justifyContent: 'center'
-                    }}>
+                    <div className="buy-seats">
 
                         {sortedSeats.map((seatInfo: any) => {
                             const occupied = occupiedSeats.includes(seatInfo.id_seat);
@@ -241,12 +223,10 @@ function BuyTicket(){
                                 <button
                                     type="button"
                                     key={seatInfo.id_seat}
+                                    className={`buy-seat${selected ? ' is-selected' : ''}${occupied ? ' is-occupied' : ''}`}
                                     onClick={() => !occupied && setSelectedSeat(seatInfo)}
                                     disabled={occupied}
-                                    style={{
-                                        backgroundColor: selected ? '#4CAF50' : occupied ? '#f44336' : '#fff',
-                                        color: selected || occupied ? '#fff' : '#333',
-                                    }}
+                                    aria-pressed={selected ? true : false}
                                 >
                                     {seatInfo.seat_number}
                                 </button>
@@ -255,20 +235,27 @@ function BuyTicket(){
                     </div>
                 )}
             </div>
-                <h2>STEP 5 SELECT YOUR PAYMENT METHOD</h2>
-                <div>
-                    {paymentTypes.map((type) => (
-                        <button
-                            key={type.id_payment_type}
-                            type="button"
-                            onClick={() => setSelectedPaymentTypes(type)}
-                        >
-                            {type.name} 
-                        </button>
-                    ))}
+                <h2 className="buy-step">STEP 5 SELECT YOUR PAYMENT METHOD</h2>
+                <div className="buy-pay">
+                    {paymentTypes.map((type) => {
+                        const method = String(type.name || '').toUpperCase();
+                        const isActive = selectedPaymentTypes?.id_payment_type === type.id_payment_type;
+                        return (
+                            <button
+                                key={type.id_payment_type}
+                                type="button"
+                                className={`buy-pay-btn${isActive ? ' is-active' : ''}`}
+                                data-payment={method}
+                                aria-pressed={isActive ? true : false}
+                                onClick={() => setSelectedPaymentTypes(type)}
+                            >
+                                {type.name}
+                            </button>
+                        );
+                    })}
 
                     {selectedPaymentTypes?.name === "QR" && (
-                        <div>
+                        <div className="buy-pay-detail" data-detail="QR">
                             <h3>SIMPLE QR</h3>
 
                             <p>INSTRUCTIONS</p>
@@ -290,75 +277,76 @@ function BuyTicket(){
                        
                     )}
                     {selectedPaymentTypes?.name === "CARD" && (
-                        <div>
+                        <div className="buy-pay-detail" data-detail="CARD">
                             <h3>CARD</h3>
                             <p>INSTRUCTIONS</p>
                             <ul>
                                 <li> Put your data card (Mastercard, Visa or Takenos)</li>
                                 <li> Pay exact amount <strong>{travel.price}</strong></li>
                             </ul> 
-                        <div>
-                            <label>
-                                Card Name
-                            </label>
-                            <input 
-                                type="text" 
-                                placeholder="Ej: Gabriel Andia" 
-                                required={selectedPaymentTypes?.name === 'CARD'}/>
+                        <div className="buy-card-grid">
+                            <div className="buy-field">
+                                <label>
+                                    Card Name
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="Ej: Gabriel Andia"
+                                    required={selectedPaymentTypes?.name === 'CARD'}/>
                             </div>
-                        <div>
-                            <label >
-                                 Card Number
-                            </label>
-                            <input 
-                                type="text" 
-                                maxLength={19}
-                                placeholder="XXXX XXXX XXXX XXXX" 
-                                required={selectedPaymentTypes?.name === 'CARD'} />
-                        </div>
-                        <div>
-                            <label>
-                                Expire Date
-                            </label>
-                            <input 
-                                type="text" 
-                                placeholder="MM/AA" 
-                                maxLength={5}
-                                required={selectedPaymentTypes?.name === 'CARD'}/>
-                        </div>
-
-                        <div>
-                            <label >
-                        CVV
-                    </label>
-                        <input 
-                        type="password" 
-                        placeholder="123" 
-                        maxLength={4}
-                        required={selectedPaymentTypes?.name === 'CARD'}/>
+                            <div className="buy-field">
+                                <label>
+                                    Card Number
+                                </label>
+                                <input
+                                    type="text"
+                                    maxLength={19}
+                                    placeholder="XXXX XXXX XXXX XXXX"
+                                    required={selectedPaymentTypes?.name === 'CARD'} />
+                            </div>
+                            <div className="buy-field">
+                                <label>
+                                    Expire Date
+                                </label>
+                                <input
+                                    type="text"
+                                    placeholder="MM/AA"
+                                    maxLength={5}
+                                    required={selectedPaymentTypes?.name === 'CARD'}/>
+                            </div>
+                            <div className="buy-field">
+                                <label>
+                                    CVV
+                                </label>
+                                <input
+                                    type="password"
+                                    placeholder="123"
+                                    maxLength={4}
+                                    required={selectedPaymentTypes?.name === 'CARD'}/>
+                            </div>
                         </div>
 
                         </div>
                     )}
                     {selectedPaymentTypes?.name === "PAYPAL" && (
-                        <div>
+                        <div className="buy-pay-detail" data-detail="PAYPAL">
                             <h3>PAYPAL</h3>
                             <p>INSTRUCTIONS</p>
                             <ul>
                                 <li>Login with your PayPal account</li>
                             </ul>
-                            <a href="https://www.paypal.com/bo/home">
-                                <button>PAYPAL</button>
+                            <a href="https://www.paypal.com/bo/home" target="_blank" rel="noreferrer">
+                                <button type="button">PAYPAL</button>
                             </a>
                         </div>
                     )}
                 </div>
-                <button type="submit">
+                <button className="buy-submit" type="submit">
                     BUY
                 </button>
 
             </form>
-        </>
+        </div>
     )
 }
 

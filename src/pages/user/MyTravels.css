@@ -1,0 +1,164 @@
+/* MyTravels — estilos de la pantalla de viajes del usuario. */
+
+.my-travels {
+  background: #faf8f8;
+  padding-bottom: 64px;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 60vh;
+}
+
+.my-travels__title {
+  position: relative;
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  margin: 36px auto 12px;
+  padding-bottom: 12px;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--text-h);
+}
+
+.my-travels__title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 58px;
+  height: 3px;
+  background: var(--accent);
+  pointer-events: none;
+}
+
+.my-travels__list {
+  width: min(720px, calc(100% - 32px));
+  margin: 22px auto 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Card de cada viaje */
+.travel-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  box-shadow: var(--shadow);
+  padding: 16px 18px;
+  box-sizing: border-box;
+}
+
+.travel-card__route {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--text-h);
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.travel-card__arrow {
+  color: var(--accent);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.travel-card__ticket {
+  display: block;
+  width: fit-content;
+  margin: 0 auto 10px;
+  padding: 3px 12px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  border-radius: 0;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.travel-card__meta {
+  margin: 0;
+  padding: 9px 2px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13.5px;
+  color: #55555c;
+  border-top: 1px solid var(--border);
+}
+
+.travel-card__meta strong {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #a89da0;
+  white-space: nowrap;
+}
+
+.travel-card__meta span {
+  font-weight: 600;
+  color: #2b2b31;
+}
+
+.travel-card__meta::before {
+  content: '';
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+
+.travel-card__meta--date::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8102e' stroke-width='2'%3E%3Cpath d='M3 5h18v16H3zM3 10h18M8 2v4M16 2v4'/%3E%3C/svg%3E");
+}
+
+.travel-card__meta--time::before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8102e' stroke-width='2'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 7v5l3 2'/%3E%3C/svg%3E");
+}
+
+/* Estado vacío */
+.my-travels__empty {
+  width: min(720px, calc(100% - 32px));
+  margin: 22px auto 0;
+  padding: 30px 22px;
+  background: #fff;
+  border: 1px dashed #d9c6c9;
+  border-radius: 0;
+  text-align: center;
+  font-size: 14.5px;
+  color: #8a8083;
+  box-sizing: border-box;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 640px) {
+  .my-travels__list {
+    gap: 10px;
+  }
+
+  .travel-card {
+    padding: 14px;
+  }
+
+  .travel-card__route {
+    font-size: 14px;
+  }
+}

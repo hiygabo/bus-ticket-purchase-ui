@@ -1,6 +1,7 @@
 import { getUserTravels } from "../../services/TravelDetailService";
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
+import "./MyTravels.css";
 
 function MyTravels(){
     const [travels, setTravels] = useState<any>([]);
@@ -29,15 +30,26 @@ function MyTravels(){
     }, [])
 
     return(
-        <div>
-            <h2>MY TRAVELS</h2>
+        <div className="my-travels">
+            <h2 className="my-travels__title">MY TRAVELS</h2>
+            {travels.length === 0 ? (
+                <p className="my-travels__empty">You have no travels yet. Book your first ticket!</p>
+            ) : (
+            <ul className="my-travels__list">
             {travels.map((ticket: any) => (
-                <div key={ticket.id_detail}>
-                    <strong> {ticket.travel?.travel_origin?.place?.place_name} -------- {ticket.travel?.travel_destiny?.place?.place_name}</strong>
-                    <p>Date: {ticket.travel?.departure_date}</p>
-                    <p>Departure time: {ticket.travel?.schedule?.departure_time}</p>
-                </div>
+                <li className="travel-card" key={ticket.id_detail}>
+                    <p className="travel-card__route">
+                        <span>{ticket.travel?.travel_origin?.place?.place_name}</span>
+                        <span className="travel-card__arrow" aria-hidden="true">→</span>
+                        <span>{ticket.travel?.travel_destiny?.place?.place_name}</span>
+                    </p>
+                    <span className="travel-card__ticket">Ticket Nº {ticket.id_detail}</span>
+                    <p className="travel-card__meta travel-card__meta--date"><strong>Date</strong><span>{ticket.travel?.departure_date}</span></p>
+                    <p className="travel-card__meta travel-card__meta--time"><strong>Departure</strong><span>{ticket.travel?.schedule?.departure_time}</span></p>
+                </li>
             ))}
+            </ul>
+            )}
         </div>
     )
 }
