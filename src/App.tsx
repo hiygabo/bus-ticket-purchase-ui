@@ -14,6 +14,7 @@ import AdminPanel from './pages/admin/AdminPanel';
 import AboutUs from './pages/user/AboutUs';
 import Login from './pages/auth/Login';
 import SignUp from './pages/auth/SignUp';
+import MyTravels from './pages/user/MyTravels';
 
 function ProtectedRoute({ children }: { children: ReactNode }) {
   if (!localStorage.getItem('admin_token')) {
@@ -38,7 +39,7 @@ function App() {
         <Route path="/edit-travel/:id" element={<ProtectedRoute><EditTravel/></ProtectedRoute>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/SignUp" element={<SignUp/>}/>
-
+        <Route path="/my-travels" element={<ProtectedRoute><MyTravels/></ProtectedRoute>}/>
 
       </Routes>
       <Footer />
