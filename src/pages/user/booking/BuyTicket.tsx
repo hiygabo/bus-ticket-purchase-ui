@@ -289,6 +289,69 @@ function BuyTicket(){
                         </div>
                        
                     )}
+                    {selectedPaymentTypes?.name === "CARD" && (
+                        <div>
+                            <h3>CARD</h3>
+                            <p>INSTRUCTIONS</p>
+                            <ul>
+                                <li> Put your data card (Mastercard, Visa or Takenos)</li>
+                                <li> Pay exact amount <strong>{travel.price}</strong></li>
+                            </ul> 
+                        <div>
+                            <label>
+                                Card Name
+                            </label>
+                            <input 
+                                type="text" 
+                                placeholder="Ej: Gabriel Andia" 
+                                required={selectedPaymentTypes?.name === 'CARD'}/>
+                            </div>
+                        <div>
+                            <label >
+                                 Card Number
+                            </label>
+                            <input 
+                                type="text" 
+                                maxLength={19}
+                                placeholder="XXXX XXXX XXXX XXXX" 
+                                required={selectedPaymentTypes?.name === 'CARD'} />
+                        </div>
+                        <div>
+                            <label>
+                                Expire Date
+                            </label>
+                            <input 
+                                type="text" 
+                                placeholder="MM/AA" 
+                                maxLength={5}
+                                required={selectedPaymentTypes?.name === 'CARD'}/>
+                        </div>
+
+                        <div>
+                            <label >
+                        CVV
+                    </label>
+                        <input 
+                        type="password" 
+                        placeholder="123" 
+                        maxLength={4}
+                        required={selectedPaymentTypes?.name === 'CARD'}/>
+                        </div>
+
+                        </div>
+                    )}
+                    {selectedPaymentTypes?.name === "PAYPAL" && (
+                        <div>
+                            <h3>PAYPAL</h3>
+                            <p>INSTRUCTIONS</p>
+                            <ul>
+                                <li>Login with your PayPal account</li>
+                            </ul>
+                            <a href="https://www.paypal.com/bo/home">
+                                <button>PAYPAL</button>
+                            </a>
+                        </div>
+                    )}
                 </div>
                 <button type="submit">
                     BUY
